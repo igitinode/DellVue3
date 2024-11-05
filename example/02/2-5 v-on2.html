@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 动态属性</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          message: "hello world",
+          good: "gooooood",
+          name: "title",
+          event: "click"
+        }
+      },
+      methods: {
+        // 事件绑定
+        handleClick() {
+          alert('click')
+        },
+        bye() {
+          alert('bye')
+        }
+      },
+      // 动态属性
+      // 绑定的属性名是由 name 属性值决定的,属性名字变得灵活了
+      // <div title="gooooood">hello world</div>
+      template:`
+        <div
+          v-on:click="handleClick"
+          :[name]="good"
+        >
+          {{message}}
+        </div>
+        <br />
+        <span @[event]="bye">bye bye</span>
+      `
+    })
+    const vm = app.mount("#root")
+  </script>
+</html>

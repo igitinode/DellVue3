@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lesson 7</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          message: "hello world",
+          good: "gooooood"
+        }
+      },
+      methods: {
+        // 事件绑定
+        handleClick() {
+          alert('click')
+        },
+        bye() {
+          alert('bye')
+        }
+      },
+      // v-on:click 简写成 @click
+      // v-bind:title 简写成 :title
+      template:`
+        <div v-on:click="handleClick">{{message}}</div>
+        <br />
+        <div @click="bye" v-bind:title="good">bye</div>
+      `
+    })
+    const vm = app.mount("#root")
+  </script>
+</html>
