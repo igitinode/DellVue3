@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lesson 7</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          message: "hello world",
+          disable: "disabled"
+        }
+      },
+      template:
+      `<div v-bind:title="message">hello world</div>
+      <input v-bind:disabled="disable" />
+      <div>{{'a' + 'b'}}</div>
+      `
+    })
+    const vm = app.mount("#root")
+  </script>
+</html>
