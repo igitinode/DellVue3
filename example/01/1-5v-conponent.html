@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lesson 4</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          inputValue: "",
+          list: [],
+        }
+      },
+      methods: {
+        handleAdditem() {
+          this.list.push(this.inputValue)
+          this.inputValue = ""
+        },
+      },
+      template: `
+      <div>
+        <!-- 数据双向绑定 -->
+        <input v-model="inputValue" />
+        <!-- 希望"标签属性": title 和 inputValue 板顶 -->
+        <button 
+          v-on:click="handleAdditem"
+          v-bind:title="inputValue"
+        >增加</button>
+        <ul>
+          <todo-item 
+            v-for="(item, index) of list" 
+            v-bind:content="item"
+            v-bind:index="index"
+           />
+        </ul>
+      </div>
+        `,
+    })
+
+    // 1 组件注册
+    app.component("todo-item", {
+      props: ["content", "index"],
+      template: `
+        <li>{{index}} -- {{content}}</li>`,
+    })
+
+    // 2 挂载实例
+    app.mount("#root")
+  </script>
+</html>
