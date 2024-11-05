@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lesson 5</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    // 1.createApp 表示创建一个 vue 应用， 存储到 app 变量中
+    // 传入的参数表示，这个应用最外层的组件，应该如何展示
+    // mvvm 设计模式 m model数据 v view视图 vm viewModel 视图数据连接层
+    const app = Vue.createApp({
+      // m
+      data() {
+        return {
+          message: "hello world",
+        }
+      },
+      // v
+      template: "<div>{{message}}</div>",
+    })
+    // vm 代表的就是 vue 应用的根组件
+    // vm 就是组件
+    const vm = app.mount("#root")
+
+    // 操作数据
+    // vm.$data.message = "see you"
+  </script>
+</html>
