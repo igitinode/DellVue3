@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lesson 4</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          list: ["hello", "world", "dell", "lee"],
+        }
+      },
+      template: `
+        <ul>
+          <li v-for="(item, index) of list">{{item}} {{index}}</li>
+        </ul>
+        `,
+    }).mount("#root")
+  </script>
+</html>
