@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 修饰符</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          message: "hello world",
+        }
+      },
+      // 事件绑定、插值表达式中都可以使用 methods
+      methods: {
+        // 事件绑定
+        // 方法不能写成箭头函数,会改变函数 this 指向 外层
+        // handleClick:()=> {this} 指向外层的this-> window
+        handleClick() {
+          // 绑定 this 到当前组件实例
+          console.log("click", this)
+        },
+      },
+      template: `<div v-on:click="handleClick">{{message}}</div>`,
+    })
+    const vm = app.mount("#root")
+  </script>
+</html>
