@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 阻止冒泡</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          counter: 1
+        }
+      },
+      methods: {
+        handlebtnClick(num, event) {
+          console.log(event);
+          this.counter += num
+        },
+        handledivClick() {
+          alert("div click")
+        },
+      },
+      // 当有参数的时候，模板中通过传 $event 获得 event 事件
+
+      template: `
+      <div @click="handledivClick">
+        {{counter}}
+        <button @click.stop="handlebtnClick(2,$event)">新增</button>
+      </div>
+      `,
+    })
+    const vm = app.mount("#root")
+  </script>
+</html>
