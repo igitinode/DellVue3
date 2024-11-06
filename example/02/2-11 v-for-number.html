@@ -21,30 +21,30 @@
     const app = Vue.createApp({
       data() {
         return {
-          listArray: ["red", "green"],
           listObject: {
             first: "aaa",
             second: "bbb",
+            third: "third",
           },
         }
       },
       methods: {
         add() {
-          // 1、使用数组的变更函数: push、pop、shift、unshift、splice、sort、reverse
-          this.listArray.push("hello")
-
-          // 2、直接替换数组
-          this.listArray = ["bye", "world1"]
-          this.listArray = ["bye"].concat(["world2"])
-
-          // 3、直接更新数组的内容
-          this.listArray[1] = "hello"
+          // 1. 直接增加对象的内容，也可以自动的展示出来
+          this.listObject.age = 100
+          this.listObject.sex = "male"
         },
       },
       // 增加 :key="index" 可以提高渲染性能,vue底层做了复用优化
+      // 技巧: 使用 template 代替 div，就少渲染一层 div
       template: `
-        <div v-for="(item,index) in listArray" :key="index">{{item}} -- {{index}}</div>
+      <div>
+        <template v-for="(value,key,index) in listObject" :key="index">
+          <div v-if="key !== 'second'">{{value}} -- {{key}}</div>
+        </template>
         <button @click="add">新增</button>
+         <div v-for="item in 10">{{item}}</div>
+      </div>
       `,
     })
     const vm = app.mount("#root")
