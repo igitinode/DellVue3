@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 表单数据绑定</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          message: "hello",
+          language: true,
+          check: [],
+          radioValue: ''
+        }
+      },
+      methods: {
+        handleClick() {
+          alert("mouse")
+        },
+        handleCtrlClick() {
+          alert("ctrl")
+        }
+      },
+      // 数据双向绑定方式,使用方法
+      // input  textarea checkbox radio
+      template: `
+      <div>
+        show: {{message}}
+        <br />
+        input: <input v-model="message" />
+        <br />
+        textarea: <textarea v-model="message" />
+        <br />
+        单个选择 checkbox：{{language}}
+        <br />
+        java <input type="checkbox" v-model="language" />
+        <br />
+        多个选择 checkbox： {{check}}
+        <br />
+        java <input type="checkbox" v-model="check" value="java" />
+        js <input type="checkbox" v-model="check" value="js" />
+        c++ <input type="checkbox" v-model="check" value="c++" />
+        <br />
+        单选 radio：{{radioValue}}
+        <br />
+        aa <input type="radio" v-model="radioValue" value="aa" />
+        bb <input type="radio" v-model="radioValue" value="bb" />
+        cc <input type="radio" v-model="radioValue" value="cc" />
+      </div>
+      `,
+    })
+    const vm = app.mount("#root")
+  </script>
+</html>
