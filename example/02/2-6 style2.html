@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 样式绑定</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .red {
+        color: red;
+      }
+      .green {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          message: "hello world",
+          // 样式3种使用方式
+          classString: "red",
+          classObject: {
+            red: false,
+            green: true,
+          },
+          classArray: ["red", "green", { brown: true }],
+        }
+      },
+      template: `<div :class="classString">{{message}}<demo class="green "/></div>`,
+    })
+    app.component("demo", {
+      // :class="$attrs.class" 子组件取父组件的值
+      template: `
+      <div :class="$attrs.class">one</div>
+      <div>two</div>
+      `,
+    })
+    const vm = app.mount("#root")
+  </script>
+</html>

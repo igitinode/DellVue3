@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 行内样式</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .red {
+        color: red;
+      }
+      .green {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          message: "hello world",
+          styleSting: "color: green;background:yellow",
+          // 推荐对象写法
+          styleObject: {
+            color: "orange",
+            background: "yellow",
+          },
+        }
+      },
+      template: `<div :style="styleObject">{{message}}</div>`,
+    })
+
+    const vm = app.mount("#root")
+  </script>
+</html>
