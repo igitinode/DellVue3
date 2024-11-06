@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 鼠标修饰符</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          counter: 1
+        }
+      },
+      methods: {
+        handleClick() {
+          alert("mouse")
+        },
+        handleCtrlClick() {
+          alert("ctrl")
+        }
+      },
+      // 鼠标修饰符： left、right、middle
+      // 当按这些键的时候，才触发函数
+      // 精确修饰符：exact
+      // @click.ctrl.exact：必须只按 ctrl+点击 才能触发，
+      // 按ctrl+多按其他的键+点击 都不会触发
+      template: `
+      <div>
+        <div @click.middle="handleClick">Click Me!</div>
+        <br />
+        <div @click.ctrl.exact="handleCtrlClick">Click Me!</div>
+      </div>
+      `,
+    })
+    const vm = app.mount("#root")
+  </script>
+</html>
