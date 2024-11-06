@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          message: "world",
+          inputValue: "",
+          num: 123,
+          trimValue: ""
+        }
+      },
+      methods: {},
+      // 自定义改变 checkbox的值
+      // 修饰符:lazy
+      // 修饰符:number
+      // 修饰符:trim (去掉前后空格)
+      template: `
+      <div>
+       {{message}}
+       <br />
+       <input type="checkbox" v-model="message" true-value="hello" false-value="world" />
+      </div>
+      <br />
+      inputValue: {{inputValue}}
+      <br />
+      <input v-model.lazy="inputValue" />
+      <br />
+      typeof:{{typeof num}}
+      <br />
+      <input v-model.number="num" type="number" />
+      <br />
+      trimValue:{{trimValue}}
+      <br />
+      <input v-model.trim="trimValue" />
+
+      `,
+    })
+    const vm = app.mount("#root")
+  </script>
+</html>
