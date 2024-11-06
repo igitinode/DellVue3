@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 列表循环</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .red {
+        color: red;
+      }
+      .green {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          listArray: ["red", "green"],
+          // 不能对对象增加、删除属性，不会变化
+          listObject: {
+            first: "aaa",
+            second: "bbb",
+          },
+        }
+      },
+      methods: {
+        add() {
+          // 使用数组的变更函数: push、pop、shift、unshift、splice、sort、reverse
+          this.listArray.push("hello")
+        },
+      },
+      // 增加 :key="index" 可以提高渲染性能,vue底层做了复用优化
+      template: `
+        <div v-for="(item,index) in listArray" :key="index">{{item}} -- {{index}}</div>
+        <button @click="add">新增</button>
+      `,
+    })
+    const vm = app.mount("#root")
+  </script>
+</html>
