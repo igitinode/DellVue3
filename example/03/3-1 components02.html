@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue components</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      // 根组件
+      template: `
+        <div>
+          <counter-parent />
+          <counter />  
+          <counter />  
+        </div>
+      `,
+    })
+    // 组件具备复用性,
+    // 通过 component 定义的全局组件，处处可以使用，性能不高，但是使用起来简单
+    // 全局子组件1
+    app.component("counter-parent", {
+      data() {
+        return {
+          count: 1,
+        }
+      },
+      template: `<counter />`,
+    })
+
+    // 全局子组件2
+    app.component("counter", {
+      data() {
+        return {
+          count: 1,
+        }
+      },
+      template: `<div @click="count += 1">{{count}}</div>`,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
