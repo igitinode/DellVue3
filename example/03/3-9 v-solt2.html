@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue slot</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          text: "提交",
+        }
+      },
+      // slot 中使用的数据，作用域的问题
+      // 数据变量 text 会用父组件的
+      // 父模板里调用的数据属性，使用的都是父模板里的数据
+      // 子模板里调用的数据属性，使用的都是子模板里的数据
+      template: `
+        <div>
+          <myform>
+            <div>{{text}}</div>
+          </myform>
+          <myform>
+            <button>{{text}}</button>
+          </myform>
+        </div>
+      `,
+    })
+    app.component('test', {
+      template: '<div>test</div>'
+    })
+    app.component("myform", {
+      methods: {
+        handleClick() {
+          alert("123")
+        },
+      },
+      // 注意： slot 是没办法绑定事件的
+      // 可以在 <slot> 添加一个包裹标签
+      template: `
+      <div>
+        <input />
+        <div @click="handleClick">
+          <slot></slot>
+        </div>
+      </div>
+      `,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>

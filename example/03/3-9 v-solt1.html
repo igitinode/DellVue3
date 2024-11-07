@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue slot</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          count: "a",
+        }
+      },
+      // 子组件标签内部的内容就叫 slot 插槽
+      // slot 插入子组件 <slot> 中的内容
+      // 插槽可以传递：标签、字符串、子组件
+      template: `
+        <div>
+          <myform>
+            <div>提交</div>
+          </myform>
+          <myform>
+            <button>提交</button>
+          </myform>
+          <myform>
+            <test />
+          </myform>
+        </div>
+      `,
+    })
+    app.component('test', {
+      template: '<div>test</div>'
+    })
+    app.component("myform", {
+      methods: {
+        handleClick() {
+          alert("123")
+        },
+      },
+      // 注意： slot 是没办法绑定事件的
+      // 可以在 <slot> 添加一个包裹标签
+      template: `
+      <div>
+        <input />
+        <div @click="handleClick">
+          <slot></slot>
+        </div>
+      </div>
+      `,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
