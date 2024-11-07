@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 组件动态静态传值</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      // 根组件
+      data() {
+        return { num: 900 }
+      },
+      template: `
+        <div>
+          <test :content="num" />
+        </div>
+      `,
+    })
+
+    // 全局子组件1
+    app.component("test", {
+      // String Boolean Array Object Function Symbol
+      props: {
+        content: {
+          // required：必填
+          // default： 默认值
+          type: Number, // 参数类型校验
+          validator: function (value) {
+            return value < 1000 // 值大于1000 在控制台会出现警告
+          },
+          required: true, // 不传会有警告
+          default: 789, // 默认值 等价于：default:functio(){return 789;}
+        },
+      },
+      template: `<div>typeof: {{typeof content}} -- {{content}}</div>`,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
