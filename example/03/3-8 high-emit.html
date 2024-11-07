@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 组件通信高级</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          count: 1,
+          apple: 9,
+        }
+      },
+      // 父子组件双向绑定通信
+      // 双向绑定多个参数
+      template: `
+        <div>
+          <counter v-model:count="count" />
+          <counter v-model:app="apple" />
+        </div>
+      `,
+    })
+    app.component("counter", {
+      props: ["count", "app"],
+      methods: {
+        handleClick() {
+          this.$emit("update:count", this.count + 3)
+        },
+        handleApp() {
+          this.$emit("update:app", this.app + 3)
+        },
+      },
+      template: `
+        <div @click="handleClick">{{count}}</div>
+        <div @click="handleApp">{{app}}</div>
+      `,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
