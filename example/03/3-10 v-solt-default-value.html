@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue slot 默认值</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          text: "提交",
+        }
+      },
+
+      template: `
+        <div>
+          <myform>
+            <div>{{text}}</div>
+          </myform>
+          <myform>
+            <button>{{text}}</button>
+          </myform>
+          <myform></myform>
+        </div>
+      `,
+    })
+    app.component('test', {
+      template: '<div>test</div>'
+    })
+    app.component("myform", {
+      methods: {
+        handleClick() {
+          alert("123")
+        },
+      },
+      // slot 默认值语法
+      template: `
+      <div>
+        <input />
+        <div @click="handleClick">
+          <slot>default value</slot>
+        </div>
+      </div>
+      `,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
