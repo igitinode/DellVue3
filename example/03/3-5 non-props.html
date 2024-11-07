@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 单向数据流</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      // 根组件
+      // Non-prop 属性 父组件 msg 传递值，子组件没有定义 props 组件接收，vue底层会把父组件的属性给子组件最外层dom上
+      // <div msg="num" test="hello">Counter</div>
+      // 当子组件有多个根节点就不会生效
+      // 要生效可以使用 v-bind="$attrs"
+      // 要阻止这种行为,可以给子组件加一个属性 inheritAttrs: false
+      // 表示不继承父组件传递过来的属性
+      // 一般用在样式修饰 style class
+      template: `
+        <div>
+          <counter msg="num" test="hello" />
+        </div>
+      `,
+    })
+
+    app.component("counter", {
+      inheritAttrs: false,
+      mounted() {
+        // hook 函数也可以获取
+        console.log(this.$attrs.msg)
+      },
+      template: `
+        <div>Counter</div>
+        <div v-bind="$attrs">Counter2</div>
+        <div :test="$attrs.test">Counter2</div>
+        <div :msg1="$attrs.msg">Counter2</div>
+      `,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
