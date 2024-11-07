@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 父子组件通信</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          count: 1,
+        }
+      },
+      methods: {
+        handleAdd(param) {
+          this.count = param
+        },
+      },
+      // 使用事件用 横线 @add-one
+      template: `
+        <div>
+          <counter :count="count" @add-one="handleAdd" />
+        </div>
+      `,
+    })
+
+    app.component("counter", {
+      props: ["count"],
+      methods: {
+        handleClick() {
+          // 触发事件用驼峰
+          this.$emit("addOne", this.count + 3) // 调用父组件的方法，让父组件来修改 count 的值
+        },
+      },
+      template: `
+        <div @click="handleClick">{{count}}</div>
+      `,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>

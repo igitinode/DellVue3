@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 父子组件双向绑定通信</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          count: 1,
+          apple: 9,
+        }
+      },
+      // 父子组件双向绑定通信
+      template: `
+        <div>
+          <counter v-model="count" />
+          <counter v-model:app="apple" />
+        </div>
+      `,
+    })
+    // v-model 简写 就对应子组件的 modelValue
+    app.component("counter", {
+      props: ["modelValue", "app"], // 固定名字，改成其他不生效
+      methods: {
+        handleClick() {
+          // 触发事件用驼峰
+          this.$emit("update:modelValue", this.modelValue + 3) // 调用父组件的方法，让父组件来修改 count 的值
+        },
+        handleApp() {
+          this.$emit("update:app", this.app + 3)
+        },
+      },
+      template: `
+        <div @click="handleClick">{{modelValue}}</div>
+        <div @click="handleApp">{{app}}</div>
+      `,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
