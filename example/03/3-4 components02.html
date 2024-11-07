@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 参数大小写</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    // 父组件传使用 content-abc 命名，子组件接收使用 contentAbc 命名
+    const app = Vue.createApp({
+      // 根组件
+      data() {
+        return {
+          content: 123,
+        }
+      },
+      // 特殊语法
+      template: `
+        <div>
+          <test :content-abc="content" />
+        </div>
+      `,
+    })
+    // 全局子组件1
+    app.component("test", {
+      props: ["contentAbc"], // 子组件驼峰式接收参数
+      template: `<div>{{contentAbc}}</div>`,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>

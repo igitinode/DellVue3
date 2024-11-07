@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 传递很多参数</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      // 根组件
+      data() {
+        return {
+          params: {
+            content: 123,
+            a: 456,
+            b: "aaa",
+          },
+        }
+      },
+      // v-bind="params" 等价于 :content="params.content" :a="params.a" :b="params.b"
+      template: `
+        <div>
+          <test v-bind="params" />
+        </div>
+      `,
+    })
+    // 全局子组件1
+    app.component("test", {
+      // String Boolean Array Object Function Symbol
+      props: ["content", "a", "b"],
+      template: `<div>{{content}} {{a}} {{b}}</div>`,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 单向数据流</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      // 根组件
+      data() {
+        return {
+          num: 1,
+        }
+      },
+      template: `
+        <div>
+          <counter :count="num" />
+          <counter :count="num" />
+          <counter :count="num" />
+        </div>
+      `,
+    })
+    // 全局子组件1
+    // 子组件可以使用父组件传递过来的数据，但是绝对不能修改传递过来的数据
+    // 避免组件之间的数据耦合，使代码维护性更好
+
+    app.component("counter", {
+      props: ["count"], // count readonly 只读
+      data() {
+        return {
+          myCount: this.count, // 赋值一份在修改
+        }
+      },
+      template: `
+        <div @click="count += 1">点击不会自增: {{count}}</div>
+        <div @click="myCount += 1">点击会自增: {{myCount}}</div>
+      `,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
