@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue transition mode</title>
+    <script src="../js/vue.global.js"></script>
+    <style>
+      /* 动画 */
+      @keyframes shake {
+        0% {
+          /* 最开始往左移动 100px */
+          transform: translateX(-100px);
+        }
+        50% {
+          /* 往左移动 50px */
+          transform: translateX(0px);
+        }
+        100% {
+          /* 右移 50px 再回到原点 */
+          transform: translateX(50px);
+        }
+      }
+      .v-leave-to,
+      .v-enter-from {
+        opacity: 0;
+      }
+      .v-enter-active,
+      .v-enter-active {
+        transition: opacity 1s ease-in;
+      }
+      .v-leave-from,
+      .v-enter-to {
+        opacity: 1;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const ComponentA = {
+      template: '<div>hello World</div>'
+    }
+
+    const ComponentB = {
+      template: '<div>bye World</div>'
+    }
+    // 多个单组件之间的切换
+    const app = Vue.createApp({
+      data() {
+        return {
+          show: false,
+        }
+      },
+      components: {
+        'component-a': ComponentA,
+        'component-b': ComponentB
+      },
+      methods: {
+        handleClick() {
+          this.show = !this.show
+        },
+      },
+      // mode="out-in"  先隐藏，在展示
+      // mode="in-out"  先展示，在隐藏
+      // mode 不写默认一起出现和隐藏
+      // appear:初次也带上动画效果
+      template: `
+      <div>
+        <transition mode="out-in" appear>
+          <component-a v-if="show" />
+          <component-b v-else="show" />
+        </transition>
+        <button @click="handleClick">切换</button>
+      </div>
+      `,
+    })
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
