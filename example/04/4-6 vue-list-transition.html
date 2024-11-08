@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue transition-group + move</title>
+    <script src="../js/vue.global.js"></script>
+    <style>
+      /* 动画 */
+      @keyframes shake {
+        0% {
+          /* 最开始往左移动 100px */
+          transform: translateX(-100px);
+        }
+        50% {
+          /* 往左移动 50px */
+          transform: translateX(0px);
+        }
+        100% {
+          /* 右移 50px 再回到原点 */
+          transform: translateX(50px);
+        }
+      }
+      .v-leave-to,
+      .v-enter-from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      .v-enter-active,
+      .v-enter-active {
+        transition: all 1.5s ease-in;
+      }
+      .v-leave-from,
+      .v-enter-to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      /* list 移动的过渡效果 */
+      .v-move {
+        transition: all .5s ease-in;
+      }
+
+      .list-item {
+        display: inline-block;
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    // 列表动画
+    const app = Vue.createApp({
+      data() {
+        return {
+          list: [1,2,3],
+        }
+      },
+      methods: {
+        handleClick() {
+         this.list.unshift(this.list.length+1)
+        },
+      },
+      template: `
+      <div>
+        <transition-group>
+          <span class="list-item" v-for="item in list" :key="item">
+            {{item}}
+          </span>
+        </transition-group>
+        <button @click="handleClick">切换</button>
+      </div>
+      `,
+    })
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
