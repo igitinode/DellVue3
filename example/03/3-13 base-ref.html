@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 动态组件</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    // ref:实际上是获取 DOM 节点 / 组件引用 的一个语法
+    const app = Vue.createApp({
+      data() {
+        return {
+          count: 1,
+        }
+      },
+      mounted() {
+        // 根据标签 ref 来操作 dom
+        // 想获取到那个dom，就在那个dom上面加 ref="xxxname"
+        // 非必要不要直接操作dom
+        this.$refs.count.innerHTML = "hello world"
+
+        // 在父组件中通过 $refs 调用子组件的方法
+        this.$refs.common.sayHello()
+      },
+      template: `
+        <div>
+          <div ref="count">
+            {{count}}
+          </div>
+          <common-item ref="common" />
+        </div>
+      `,
+    })
+
+    app.component("input-item", {
+      template: `<input />`,
+    })
+
+    app.component("common-item", {
+      methods: {
+        sayHello() {
+          alert("hello")
+        },
+      },
+      template: `<div>hi</div>`,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 动态组件</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    // provide: 提供数据
+    // inject：跨越多层组件使用数据
+    const app = Vue.createApp({
+      data() {
+        return {
+          count: 1,
+        }
+      },
+      // provide: {
+      //   count: 1,
+      // },
+
+      // 要想引用 data 的数据，使用下面这种写法函数写法
+      // 这种写法是一次性的，不是双向绑定的
+      // vue3 新写法可以实现
+      provide() {
+        return {
+          count: this.count,
+        }
+      },
+      template: `
+        <div>
+          <father :count="count" />
+          <button @click="count+=1">Add</button>
+        </div>
+      `,
+    })
+
+    app.component("father", {
+      template: `<child />`,
+    })
+
+    app.component("child", {
+      inject: ["count"],
+      template: `<div>{{count}}</div>`,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>

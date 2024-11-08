@@ -13,11 +13,15 @@
     const app = Vue.createApp({
       data() {
         return {
-          message: "hello world",
+          count: 1,
         }
       },
       // 只绑定一次，vm.$data.message = 'bye' 并不会重新渲染更新 dom
-      template:`<div v-once>{{message}}</div>`
+      // 但是不会阻止事件的继续执行
+      template: `
+        <div>{{count}}</div>
+        <div v-once @click="count +=1">{{count}}</div>
+      `,
     })
     const vm = app.mount("#root")
   </script>
