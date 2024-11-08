@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue slot 具名插槽高级用法</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          text: "提交",
+        }
+      },
+      // slot 简写 作用域插槽
+      // 解决的问题：当子组件渲染的内容要由父组件决定的时候，怎么展示内容，父组件可以调用子组件的数据
+      // 写一些 vue 组件插件的时候用处大
+      // 父组件调用子组件，传递slot进来，子组件通过属性的形式，把数据传递给父组件，父组件拿到内容再决定显示内容
+      // 对象结构也可以
+      // <list v-slot="｛item｝">
+      //     <div>{{item}}</div>
+      // </list>
+      template: `
+        <list v-slot="slotProps">
+            <div>{{slotProps.item}}</div>
+        </list>
+      `,
+    })
+
+    app.component("list", {
+      data() {
+        return {
+          list: [1, 2, 3],
+        }
+      },
+      template: `
+      <div>
+        <slot v-for="item in list" :item="item"></slot>
+      </div>
+      `,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
