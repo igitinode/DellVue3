@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue transition duration</title>
+    <script src="../js/vue.global.js"></script>
+    <style>
+      /* 动画 */
+      @keyframes shake {
+        0% {
+          /* 最开始往左移动 100px */
+          transform: translateX(-100px);
+        }
+        50% {
+          /* 往左移动 50px */
+          transform: translateX(0px);
+        }
+        100% {
+          /* 右移 50px 再回到原点 */
+          transform: translateX(50px);
+        }
+      }
+      /* 入场开始 */
+      .v-enter-from {
+        color: red;
+      }
+      /* 整个动画入场过程执行 */
+      .v-enter-active {
+        animation: shake 10s;
+        transition: all 3s ease-in;
+      }
+      /* 整个动画出场过程执行 */
+      .v-leave-active {
+        color: red;
+        animation: shake 10s;
+        transition: all 3s ease-in;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    // 单组件的入场出场动画
+    const app = Vue.createApp({
+      data() {
+        return {
+          show: false,
+          showDuration: false,
+        }
+      },
+      methods: {
+        handleClick() {
+          this.show = !this.show
+        },
+        handleClick1() {
+          this.showDuration = !this.showDuration
+        },
+      },
+      // 自定义动画 class 名字
+      // 过渡和动画时间不一致，以type声明的为准
+      template: `
+        <transition type="transition">
+          <div v-if="show">hello world</div>
+        </transition>
+        <button @click="handleClick">过渡和动画时间不一致,以type声明的为准</button>
+        <br />
+        <br />
+        <br />
+        <transition :duration="1000">
+          <div v-if="showDuration">hello world</div>
+        </transition>
+        <transition :duration="{enter:1000, leave:3000}">
+          <div v-if="showDuration">hello world</div>
+        </transition>
+        <button @click="handleClick1">不管动画和过渡设置了几秒，都已 duration 的时间为准</button>
+      `,
+    })
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>

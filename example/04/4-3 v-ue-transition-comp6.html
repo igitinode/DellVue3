@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue transition duration</title>
+    <script src="../js/vue.global.js"></script>
+    <style>
+      /* 动画 */
+      @keyframes shake {
+        0% {
+          /* 最开始往左移动 100px */
+          transform: translateX(-100px);
+        }
+        50% {
+          /* 往左移动 50px */
+          transform: translateX(0px);
+        }
+        100% {
+          /* 右移 50px 再回到原点 */
+          transform: translateX(50px);
+        }
+      }
+      /* 入场开始 */
+      .v-enter-from {
+        color: red;
+      }
+      /* 整个动画入场过程执行 */
+      .v-enter-active {
+        animation: shake 10s;
+        transition: all 3s ease-in;
+      }
+      /* 整个动画出场过程执行 */
+      .v-leave-active {
+        color: red;
+        animation: shake 10s;
+        transition: all 3s ease-in;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    // 单组件的入场出场动画
+    const app = Vue.createApp({
+      data() {
+        return {
+          show: false,
+          showDuration: false,
+        }
+      },
+      methods: {
+        handleClick() {
+          this.show = !this.show
+        },
+        handleBeforeEnter(el) {
+          el.style.color = "red"
+        },
+        handleEnterActive(el, done) {
+          // 每个一秒切换一下颜色
+          const animation = setInterval(() => {
+            const color = el.style.color
+            if (color === "red") {
+              el.style.color = "green"
+            } else {
+              el.style.color = "red"
+            }
+          }, 1000)
+
+          setTimeout(() => {
+            clearInterval(animation) // 清除定时器
+            done() // 动画结束，方便通知  @after-enter="handleEnterEnd"  动画已经结束
+          }, 3000)
+        },
+        handleEnterEnd() {
+          alert("123")
+        },
+      },
+      // transition 不使用 css来做动画
+      // 使用 js 钩子做动画
+      // enter leave 的参数默认是两个：el 和 done，其他的都是：el
+      template: `
+        <transition
+          :css="false"
+          @before-enter="handleBeforeEnter"
+          @enter="handleEnterActive"  
+          @after-enter="handleEnterEnd"
+          @before-leave=""
+          @leave=""
+          @leave-after=""
+        >
+          <div v-if="show">hello world</div>
+        </transition>
+        <button @click="handleClick">切换</button>
+      `,
+    })
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>

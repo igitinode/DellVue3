@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue transition 自定义动画名字</title>
+    <script src="../js/vue.global.js"></script>
+    <style>
+      /* 动画 */
+      @keyframes shake {
+        0% {
+          /* 最开始往左移动 100px */
+          transform: translateX(-100px);
+        }
+        50% {
+          /* 往左移动 50px */
+          transform: translateX(0px);
+        }
+        100% {
+          /* 右移 50px 再回到原点 */
+          transform: translateX(50px);
+        }
+      }
+      /* 整个动画入场过程执行 */
+      .hello {
+        animation: shake 3s;
+      }
+      /* 整个动画出场过程执行 */
+      .bye {
+        animation: shake 3s;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    // 单组件的入场出场动画
+    const app = Vue.createApp({
+      data() {
+        return {
+          show: false,
+        }
+      },
+      methods: {
+        handleClick() {
+          this.show = !this.show
+        },
+      },
+      // 自定义动画 class 名字
+      template: `
+        <transition 
+          enter-from-class=""
+          enter-to-class=""
+          enter-active-class="hello" 
+          leave-active-class="bye"
+          leave-from-class=""
+          leave-to-class=""
+        >
+          <div v-if="show">hello world</div>
+        </transition>
+        <button @click="handleClick">切换</button>
+      `,
+    })
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
