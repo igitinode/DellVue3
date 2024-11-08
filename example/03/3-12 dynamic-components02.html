@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 动态组件</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      // 动态组件：根据数据变化，结合 component 标签随时动态切换组件的显示
+      // 包裹 keep-alive 记录保存动态组件切换前的数据
+      // 缓存效果
+      data() {
+        return {
+          currrentItem: "input-item",
+        }
+      },
+      methods: {
+        handleClick() {
+          if (this.currrentItem === "input-item") {
+            this.currrentItem = "common-item"
+          } else {
+            this.currrentItem = "input-item"
+          }
+        },
+      },
+      template: `
+        <keep-alive>
+          <component :is="currrentItem" />
+        </keep-alive>
+        <button @click="handleClick">切换</button>
+      `,
+    })
+
+    app.component("input-item", {
+      template: `<input />`,
+    })
+
+    app.component("common-item", {
+      template: `<div>hello world</div>`,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>

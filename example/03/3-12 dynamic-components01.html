@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 动态组件</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      // 二选一展示,代码臃肿，优化见2
+      data() {
+        return {
+          currrentItem: "input-item",
+        }
+      },
+      methods: {
+        handleClick() {
+          if (this.currrentItem === "input-item") {
+            this.currrentItem = "common-item"
+          } else {
+            this.currrentItem = "input-item"
+          }
+        },
+      },
+      template: `
+        <input-item v-show="currrentItem === 'input-item'"  />
+        <common-item v-show="currrentItem === 'common-item'"  />
+        <button @click="handleClick">切换</button>
+      `,
+    })
+
+    app.component("input-item", {
+      template: `<input />`,
+    })
+
+    app.component("common-item", {
+      template: `<div>hello world</div>`,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 动态组件</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      // 动态组件：根据数据变化，结合 component 标签随时动态切换组件的显示
+      // 包裹 keep-alive 记录保存动态组件切换前的数据
+      // 缓存效果
+      data() {
+        return {
+          currrentItem: "input-item",
+        }
+      },
+      template: `
+        <input-item />
+        <async-common-item />
+      `,
+    })
+    // 同步组件
+    app.component("input-item", {
+      template: `<input />`,
+    })
+
+    // 注册异步组件
+    // 作用：通过异步方式，把大项目拆分成一些小组件，动态加载一些小组件，等需要用到的时候再加载
+    app.component(
+      "async-common-item",
+      Vue.defineAsyncComponent(() => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve({
+              template: `<div> This is a async components</div>`,
+            })
+          }, 4000)
+        })
+      })
+    )
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
