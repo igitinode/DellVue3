@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue transition 单元素组件的过渡和动画效果</title>
+    <script src="../js/vue.global.js"></script>
+    <style>
+      /* 动画 */
+      @keyframes shake {
+        0% {
+          /* 最开始往左移动 100px */
+          transform: translateX(-100px);
+        }
+        50% {
+          /* 往左移动 50px */
+          transform: translateX(0px);
+        }
+        100% {
+          /* 右移 50px 再回到原点 */
+          transform: translateX(50px);
+        }
+      }
+
+      /* 入场开始 */
+      .v-enter-from {
+        opacity: 0;
+      }
+      /* 入场结束 */
+      .v-enter-to {
+        opacity: 1;
+      }
+      /* 整个动画入场过程执行 */
+      .v-enter-active {
+        animation: shake 3s;
+      }
+
+      /* 出场开始 */
+      /* 状态和入场后一样，可省略 */
+      .v-leave-from {
+        opacity: 1;
+      }
+      /* 出场结束 */
+      .v-leave-from {
+        opacity: 0;
+      }
+      /* 整个动画出场过程执行 */
+      .v-leave-active {
+        transition: opacity 3s ease-in;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    // 单组件的入场出场动画
+    const app = Vue.createApp({
+      data() {
+        return {
+          show: false,
+        }
+      },
+      methods: {
+        handleClick() {
+          this.show = !this.show
+        },
+      },
+      template: `
+        <transition>
+          <div v-if="show">hello world</div>
+        </transition>
+        <button @click="handleClick">切换</button>
+      `,
+    })
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
