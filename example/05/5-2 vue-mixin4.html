@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 局部mixin</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    // 局部 mixin
+    // 3.组件中的自定义属性优先级高于mixin的自定义属性
+    const myMixin = {
+      number: 1,
+    }
+    // 组件的所有属性都会存储到 this.$options 上来
+    // vm.$options.number
+    const app = Vue.createApp({
+      number: 2, // 组件自定义属性
+      mixins: [myMixin],
+      template: `
+      <div>
+        <div>{{this.$options.number}}</div>
+      </div>
+      `,
+    })
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>

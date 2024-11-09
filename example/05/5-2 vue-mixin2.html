@@ -3,19 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>vue mixin</title>
+    <title>vue 局部mixin</title>
     <script src="../js/vue.global.js"></script>
   </head>
   <body>
     <div id="root"></div>
   </body>
   <script>
-    // mixin 混入
-    // 优先规则：
-    // 1.data数据、methods：组件（data、methods） > mixin（data、methods）
-    // 2.8个生命周期钩子函数：先执行mixin > 再执行data组件
-    // 3.组件中的自定义属性优先级高于mixin的自定义属性
-    // 4. vue 提供修改mixin优先级的方法
+    // 局部 mixin
     const myMixin = {
       data() {
         return {
@@ -42,6 +37,7 @@
         console.log('created 后执行');
 
       },
+      // 引入局部 minxin
       mixins: [myMixin],
       methods: {
         handleClick() {
@@ -50,11 +46,17 @@
       },
       template: `
       <div>
-        <div> count: {{count}}</div>
+        <div> 父组件count: {{count}}</div>
+        <child />
         <div> number: {{number}}</div>
         <button @click="handleClick">切换</button>
       </div>
       `,
+    })
+    app.component('child', {
+      // 引入局部 minxin
+      mixins: [myMixin],
+      template: "<div>子组件count: {{count}}</div>"
     })
     // 组件挂载
     const vm = app.mount("#root")

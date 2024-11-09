@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 局部mixin</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    // 局部 mixin
+    // 4. vue 提供修改mixin优先级的方法
+    const myMixin = {
+      number: 'mixin 1',
+    }
+
+    const app = Vue.createApp({
+      number: 'data 1', // 组件自定义属性
+      mixins: [myMixin],
+      template: `
+      <div>
+        <div>{{this.$options.number}}</div>
+      </div>
+      `,
+    })
+    // 修改 mixin 属性的优先级
+    // vue3升级之后不推荐使用了，可以使用其他方法
+    app.config.optionMergeStrategies.number = (mixinValue, appValue) => {
+      // 优先返回 mixinValue，没有再输出 appValue
+      return mixinValue || appValue
+    }
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
