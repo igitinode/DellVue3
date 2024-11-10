@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 局部指令</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    // 定义局部指令 directives
+    const directives = {
+      focus: {
+        // el 指令被挂载的元素dom
+        mounted(el) {
+          el.focus()
+        }
+      }
+    }
+    const app = Vue.createApp({
+      directives: directives, // 组件引用局部指令
+      template: `
+      <div>
+        <input v-focus />
+      </div>
+      `,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 全局指令</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+
+    const app = Vue.createApp({
+      template: `
+      <div>
+        <input v-focus />
+      </div>
+      `,
+    })
+
+    // 定义全局指令，任何地方都可以使用
+    app.directive('focus', {
+      // el 指令被挂载的元素dom
+      mounted(el) {
+        el.focus()
+      }
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>

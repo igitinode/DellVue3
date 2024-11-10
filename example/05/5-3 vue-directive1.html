@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 指令</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+
+    const app = Vue.createApp({
+      mounted() {
+        // 加载完自动聚焦, 没法被复用
+        this.$refs.input.focus()
+        this.$refs.input1.focus()
+      },
+      template: `
+      <div>
+        <input ref="input" />
+        <input ref="input1" />
+      </div>
+      `,
+    })
+
+    // 定义全局指令
+    // app.directive('focus', {
+    //   mounted(el) {
+    //     el.focus()
+    //   }
+    // })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>

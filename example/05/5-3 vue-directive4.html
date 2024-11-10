@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 指令</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+
+    const app = Vue.createApp({
+      data() {
+        return {
+          hello: true
+        }
+      },
+      methods: {
+        handleClick() {
+          this.hello = !this.hello
+        },
+      },
+      template: `
+      <div>
+        <div v-if="hello">
+          <input v-focus />
+        </div>
+        <button @click="handleClick">切换</button>
+      </div>
+      `,
+    })
+
+    // 定义全局指令，任何地方都可以使用
+    // 指令的钩子函数
+    app.directive('focus', {
+      // el 指令被挂载的元素dom
+      beforemounted(el) {
+        console.log('beforemounted');
+      },
+      mounted(el) {
+        el.focus()
+      },
+      beforeUpdate(el) {
+        console.log('beforeUpdate');
+      },
+      updated(el) {
+        console.log('updated');
+      },
+      beforeUnmount(el) {
+        console.log('beforeUnmount');
+      },
+      unmounted(el) {
+        console.log('unmounted');
+      }
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
