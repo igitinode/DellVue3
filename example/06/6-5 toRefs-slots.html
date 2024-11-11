@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue reactive toRefs</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      template: `
+        <child>parent</child>
+      `,
+    })
+
+    app.component("child", {
+      setup(props, context) {
+        const { h } = Vue
+        const { attrs, slots, emit } = context
+        return () => h("div", {}, slots.default())
+      },
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>

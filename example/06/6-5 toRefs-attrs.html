@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue reactive toRefs</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      template: `
+        <child app='app'/>
+      `,
+    })
+
+    app.component("child", {
+      template: `
+        <div>child</div>
+      `,
+      setup(props, context) {
+        // attrs:父组传递过来的 None-Props 属性 app='app'(子组件没有定义props)
+        const { attrs, slots, emit } = context
+        return {}
+      },
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
