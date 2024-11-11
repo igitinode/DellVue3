@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue setup</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    // 对数据做校验的插件
+    const app = Vue.createApp({
+      template: `
+        <div @click="handleClick">name: {{name}}</div>
+      `,
+      methods: {
+        test() {
+          console.log(this.$options.setup())
+        },
+      },
+      mounted() {
+        this.test()
+        // 钩子函数可以通过 this.$options 调用 setup
+        // setup 不能通过 this 调用钩子函数
+      },
+      // setup 是在 created 实例被完全初始化之前
+      // 里面不能使用 this。因为在 setup 的时候还未初始化
+      setup(props, context) {
+        // return 的东西会暴露在外部，被摸板使用，
+        // 不能调用组件实例的方法
+        // 组件实例的方法可以调用 setup
+        return {
+          name: "jack",
+          handleClick: () => {
+            alert("123")
+          },
+        }
+      },
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
