@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue render function</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="hello"></div>
+  </body>
+  <script>
+    // teleport 传送门
+    const app = Vue.createApp({
+      template: `
+        <my-title :level="1">
+          hello
+        </my-title>
+      `,
+    })
+    // 传几，就生成几的标签
+    // templat 在底层编译之后 会生成 render 函数
+    // template -> render() -> h() -> 虚拟DOM(JS对象) -> 真实DOM -> 展示到页面
+    app.component("my-title", {
+      props: ["level"],
+      render() {
+        const { h } = Vue
+        // 真实DOM：<div>hello</div>
+        // 虚拟DOM：通过JS对象来表示虚拟标签,是真实DOM对象的映射
+        // {tagName: 'div', text: 'hello', attributes: {}}
+        return h("h" + this.level, {}, [
+          this.$slots.default(),
+          h("h4", {}, "Jack"),
+        ]) // this.$slots.default() 很多个插槽，调用默认的插槽
+      },
+      // template: `
+      //   <h1 v-if="level === 1"><slot /></h1>
+      //   <h1 v-if="level === 2"><slot /></h1>
+      //   <h1 v-if="level === 3"><slot /></h1>
+      //   <h1 v-if="level === 4"><slot /></h1>
+      //   <h1 v-if="level === 5"><slot /></h1>
+      //   <h1 v-if="level === 6"><slot /></h1>
+      // `,
+    })
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
