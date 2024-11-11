@@ -10,20 +10,21 @@
     <div id="root"></div>
   </body>
   <script>
-    // ref reactive 响应式引用
-    // 原理：通过proxy 对数据进行封装，当数据变化时，触发模版等内容的更新
     const app = Vue.createApp({
       template: `
-        <div>name: {{nameObj.name}}</div>
+        <div>name: {{name}}</div>
       `,
       setup(props, context) {
-        const { reactive } = Vue
+        const { reactive, toRefs } = Vue
         let nameObj = reactive({ name: "test" })
         setTimeout(() => {
           nameObj.name = "jack"
         }, 2000)
+        // 解构name。toRefs 会把 proxy({name: 'test'}) 变成 {name: proxy({value, 'test'})}
+        // toRefs 会把解构的数据变成响应式数据
+        const { name } = toRefs(nameObj)
         return {
-          nameObj,
+          name,
         }
       },
     })

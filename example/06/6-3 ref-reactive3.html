@@ -14,16 +14,19 @@
     // 原理：通过proxy 对数据进行封装，当数据变化时，触发模版等内容的更新
     const app = Vue.createApp({
       template: `
-        <div>name: {{nameObj.name}}</div>
+        <div>name: {{nameObj[0]}}</div>
       `,
       setup(props, context) {
-        const { reactive } = Vue
-        let nameObj = reactive({ name: "test" })
+        const { reactive, readonly } = Vue
+        let nameObj = reactive([123])
+        let copyNameObj = readonly(nameObj)
         setTimeout(() => {
-          nameObj.name = "jack"
+          nameObj[0] = 456
+          copyNameObj[0] = 456 // 只读的修改会报错
         }, 2000)
         return {
           nameObj,
+          copyNameObj,
         }
       },
     })
