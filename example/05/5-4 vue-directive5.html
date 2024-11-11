@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 指令交互</title>
+    <script src="../js/vue.global.js"></script>
+    <style>
+      .header {
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          top: 50,
+        }
+      },
+      methods: {
+        handleClick() {
+          this.top = this.top + 10
+        },
+      },
+      template: `
+      <div>
+        <div v-pos="top" class="header">
+          <input />
+        </div>
+        <button @click="handleClick">增加距离</button>
+      </div>
+      `,
+    })
+
+    // 定义全局指令，任何地方都可以使用
+    // 指令的钩子函数
+    app.directive("pos", {
+      // el 指令被挂载的元素dom
+      // bindingValue 调用指令绑定的值
+      mounted(el, bindingValue) {
+        el.style.top = bindingValue.value + "px"
+      },
+      updated(el, bindingValue) {
+        // 当 bindingValue 的值发生改变的时候，重新更新
+        el.style.top = bindingValue.value + "px"
+      },
+    })
+
+    // 当mounted、updated等钩子函数处理一样，可以简写成下面形式
+    // 等价于
+    // app.directive("pos", (el, bindingValue) {
+    //   el.style.top = (bindingValue.value + "px")
+    // })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>

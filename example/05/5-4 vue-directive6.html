@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 指令交互</title>
+    <script src="../js/vue.global.js"></script>
+    <style>
+      .header {
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          distance: 50,
+        }
+      },
+      methods: {
+        handleClick() {
+          this.distance = this.distance + 10
+        },
+      },
+      // 定义指令参数
+      template: `
+      <div>
+        <div v-pos:left="distance" class="header">
+          <input />
+        </div>
+        <button @click="handleClick">增加距离</button>
+      </div>
+      `,
+    })
+
+    app.directive("pos", (el, binding) => {
+      // binding.arg === left  获取指令参数
+      el.style[binding.arg] = binding.value + "px"
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
