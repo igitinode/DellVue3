@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue plugin 插件</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="hello"></div>
+  </body>
+  <script>
+    // plugin 插件:把通用性的功能封装起来
+    const myPlugin = {
+      // 入口调用方法
+      // app： vue的实例对象
+      // options：注册的时候传递的配置参数
+      install(app, options) {
+        // 扩展相应功能
+        app.provide("name", "uijack")
+        app.directive("focus", {
+          mounted(el) {
+            el.focus()
+          },
+        })
+        app.mixin({
+          mounted() {
+            console.log("mixin")
+          },
+        })
+        app.config.globalProperties.$sayHello = "hello world"
+        console.log(app, options)
+      },
+    }
+    const app = Vue.createApp({
+      template: `
+        <my-title />
+      `,
+    })
+
+    app.component("my-title", {
+      inject: ["name"],
+      template: `
+      <div>
+        <div>{{this.$sayHello}}</div>
+        <div>hello {{name}}</div>
+        <div><input v-focus /></div>
+      </div>
+      `,
+    })
+    // 注册插件
+    app.use(myPlugin, { name: "Jack" })
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
