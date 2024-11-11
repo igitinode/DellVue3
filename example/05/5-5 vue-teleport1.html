@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue teleport 传送门</title>
+    <script src="../js/vue.global.js"></script>
+    <style>
+      .area {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 200px;
+        height: 300px;
+        background: green;
+      }
+      .mask {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: #000;
+        opacity: 0.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    // teleport 传送门
+    const app = Vue.createApp({
+      data() {
+        return {
+          show: false,
+        }
+      },
+      methods: {
+        handleClick() {
+          this.show = !this.show
+        },
+      },
+      // mask 蒙层只会覆盖 area区域，不会覆盖整个页面，但是mask标签又不能放到body里面去。
+      // 可以使用 vue 提供的teleport功能 直接传送到body标签下面去
+      template: `
+      <div class="area">
+        <button @click="handleClick">按钮</button>
+        <div class="mask" v-show="show"></div>
+      </div>
+      `,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
