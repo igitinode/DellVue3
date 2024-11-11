@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue 数据校验插件 mixin</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="hello"></div>
+  </body>
+  <script>
+    // 对数据做校验的插件
+    const app = Vue.createApp({
+      data() {
+        return {
+          name: "jack",
+          age: "30",
+        }
+      },
+      // 自定义规则
+      rules: {
+        age: {
+          validate: age => {
+            return age > 25
+          },
+          message: "too young, too simple。太年轻了",
+        },
+        name: {
+          validate: name => {
+            return name.length >= 4
+          },
+          message: "name too short",
+        },
+      },
+      template: `
+        <div>name: {{name}}, age: {{age}}</div>
+      `,
+    })
+
+    // 方式一：使用mixin
+    app.mixin({
+      mounted() {
+        for (let key in this.$options.rules) {
+          const item = this.$options.rules[key]
+          this.$watch(key, newValue => {
+            const result = item.validate(newValue)
+            if (!result) {
+              alert(item.message)
+            }
+          })
+        }
+      },
+    })
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
