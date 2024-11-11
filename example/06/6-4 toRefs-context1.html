@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue reactive toRefs</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      template: `
+        <div>name: {{name}}</div>
+      `,
+      setup(props, context) {
+        const { reactive, toRefs } = Vue
+        const data = reactive({ name: "uijack" })
+        const { name } = toRefs(data)
+        setTimeout(() => {
+          name.value = "hi,uijack"
+        }, 2000)
+        return { name }
+      },
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>

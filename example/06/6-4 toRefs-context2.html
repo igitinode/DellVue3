@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue reactive toRefs</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      template: `
+        <div>name: {{age}}</div>
+      `,
+      setup(props, context) {
+        const { reactive, toRef } = Vue
+        const data = reactive({ name: "uijack" })
+        // 从 data 里面取响应式数据 age, 没有就为 undefined
+        // 最好定义age
+        const age = toRef(data, "age")
+
+        setTimeout(() => {
+          age.value = 28
+        }, 2000)
+        return { age }
+      },
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
