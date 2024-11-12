@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue watch</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      setup() {
+        // watch 侦听器
+        const { reactive, watch, toRefs } = Vue
+        const nameObj = reactive({
+          name: "jack",
+          englishName: "uijack",
+        })
+        // 用一个侦听器承载，可以侦听多个属性，可以写成数组形式
+        watch(
+          [() => nameObj.name, () => nameObj.englishName],
+          ([curName, curEng], [prevName, prevEng]) => {
+            console.log(curName, prevName, "----", curEng, prevEng)
+          }
+        )
+        const { name, englishName } = toRefs(nameObj)
+        return { name, englishName }
+      },
+      template: `
+      <div>
+        <div>Name: <input v-model="name" /></div>
+        <div>Name is {{name}}</div>
+        <div>Name: <input v-model="englishName" /></div>
+        <div>Name is {{englishName}}</div>
+      </div>
+      `,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>

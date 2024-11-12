@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue watch</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      setup() {
+        // watch 侦听器
+        const { reactive, watch, toRefs } = Vue
+        const nameObj = reactive({ name: "jack" })
+        // 具备一定的惰性 lazy :
+        // 参数可以拿到原始值和当前值
+        // 侦听多个属性，可以写成数组
+        watch(
+          () => nameObj.name, // 监听对象属性要写成箭头函数，才能监听
+          (currentValue, prevValue) => {}
+        )
+        const { name } = toRefs(nameObj)
+        return { name }
+      },
+      template: `
+      <div>
+        <div>Name: <input v-model="name" /></div>
+        <div>Name is {{name}}</div>
+      </div>
+      `,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
