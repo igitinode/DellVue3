@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue reactive toRefs</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      setup() {
+        // computed 计算属性
+        const { ref, computed } = Vue
+        const count = ref(0)
+        const handleClick = () => {
+          count.value += 1
+        }
+        let countAddFive = computed({
+          // return count.value + 5
+          // 还可以自定义 get set 方法
+          get: () => {
+            return count.value + 5
+          },
+          set: param => {
+            count.value = param - 5
+          },
+        })
+
+        setTimeout(() => {
+          countAddFive.value = 100
+        }, 3000)
+        return {
+          count,
+          countAddFive,
+          handleClick,
+        }
+      },
+      template: `
+      <div>
+        <span @click="handleClick">{{count}} -- {{countAddFive}}</span>
+      </div>
+      `,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
