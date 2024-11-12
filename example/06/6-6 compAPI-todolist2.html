@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue reactive toRefs</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    // 对 list 操作的内容进行封装
+    const listRelativeEffect = () => {
+      const { reactive } = Vue
+      const list = reactive([])
+      const addItemToList = item => {
+        list.push(item)
+      }
+      return { list, addItemToList }
+    }
+
+    // 对 inputValue 操作的内容进行封装
+    const inputRelativeEffect = () => {
+      const { ref } = Vue
+      const inputValue = ref("")
+      const handleInputValueChange = e => {
+        inputValue.value = e.target.value
+      }
+      return { inputValue, handleInputValueChange }
+    }
+    const app = Vue.createApp({
+      setup() {
+        // setup 就是流程调度中转
+        const { list, addItemToList } = listRelativeEffect()
+        const { inputValue, handleInputValueChange } = inputRelativeEffect()
+
+        const handleSubmit = () => {
+          addItemToList(inputValue)
+        }
+        return {
+          list,
+          inputValue,
+          handleInputValueChange,
+          handleSubmit,
+        }
+      },
+      template: `
+      <div>
+        <div>
+          <input :value="inputValue" @input="handleInputValueChange" />
+          <button @click="handleSubmit">提交</button>
+        </div>
+      <ul>
+        <li v-for="(item,index) in list" :key="index">{{item}}</li>
+      </ul>
+    </div>
+      `,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
