@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue provide inject ref</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      setup() {
+        const { provide } = Vue
+        provide("name", "jack")
+        return {}
+      },
+      template: `
+      <div>
+        <child />
+      </div>
+      `,
+    })
+
+    app.component("child", {
+      setup() {
+        const { inject } = Vue
+        const name = inject("name")
+        return { name }
+      },
+      template: `
+      <div>hello {{name}}</div>
+      `,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
