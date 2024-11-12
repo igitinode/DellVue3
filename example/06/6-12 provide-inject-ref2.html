@@ -10,12 +10,13 @@
     <div id="root"></div>
   </body>
   <script>
+    // provide，inject
     const app = Vue.createApp({
       setup() {
-        const { ref, provide } = Vue
+        const { ref, provide, readonly } = Vue
         const name = ref("jack")
-        provide("name", name)
-        provide("changeName", value => {
+        provide("name", readonly(name))  // 防止子组件修改
+        provide("changeName", (value) => {
           name.value = value
         })
 
