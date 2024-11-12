@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue watchEffect</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      setup() {
+        // watchEffect 侦听器, 偏向于 effect
+        const { reactive, watch, toRefs, watchEffect, watchEffecttoRefs } = Vue
+        const nameObj = reactive({
+          name: "jack",
+          englishName: "uijack",
+        })
+        // 用一个侦听器承载，可以侦听多个属性，可以写成数组形式
+        const stop1 = watch(
+          [() => nameObj.name, () => nameObj.englishName],
+          ([curName, curEng], [prevName, prevEng]) => {
+            console.log(curName, prevName, "----", curEng, prevEng)
+
+            // 5秒后结束watchEffect侦听
+            setTimeout(() => {
+              stop1()
+            }, 5000)
+          }
+        )
+        // watchEffect 立即执行一次，没有惰性 immediate
+        // 内部依赖有变化，会执行
+        // 不需要传递侦听的内容，自动会感知代码依赖，不需要传递很多参数，只要传递一个回调函数
+        // 不能获取之前数据的值
+        const stop = watchEffect(() => {
+          console.log("watchEffect无依赖，只执行一次") // 没有依赖 只执行一次
+          console.log(nameObj.name) // 有依赖，属性变化了会执行
+          console.log(nameObj.englishName) // 有依赖，属性变化了会执行
+
+          // 5秒后结束watchEffect侦听
+          setTimeout(() => {
+            stop()
+          }, 5000)
+        })
+        const { name, englishName } = toRefs(nameObj)
+        return { name, englishName }
+      },
+      template: `
+      <div>
+        <div>Name: <input v-model="name" /></div>
+        <div>Name is {{name}}</div>
+        <div>Name: <input v-model="englishName" /></div>
+        <div>Name is {{englishName}}</div>
+      </div>
+      `,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
