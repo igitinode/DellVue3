@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue composition API 生命周期函数</title>
+    <script src="../js/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      // vue2  生命周期函数  vue3
+      // beforeCreate creaed <==> setup替代两个
+      // beforeMount <==> onBeforeMount
+      // mounted <==> onMounted
+      // beforeUpdate <==> onBeforeUpdate
+      // beforeUnmount <==> onBeforeUnmount
+      // vue3新增了两个钩子函数：
+      // onRenderTracked：每次渲染后重新收集响应式依赖的时候触发
+      // onRenderTriggered: 每次触发页面重新渲染时自动执行，第一次加载页面不触发
+      setup() {},
+      template: `
+      <div>
+        <div>hello world</div>
+      </div>
+      `,
+    })
+
+    // 组件挂载
+    const vm = app.mount("#root")
+  </script>
+</html>
