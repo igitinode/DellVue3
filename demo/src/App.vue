@@ -1,16 +1,30 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div>
+    <input v-model="inputValue" />
+    <button class="button" @click="handleAddItem">提交</button>
+  </div>
+  <ul>
+    <list-item v-for="(item, index) in list" :key="index" :msg="item" />
+  </ul>
 </template>
 
 <script>
-// 单文件组件 SFC
-import HelloWorld from "./components/HelloWorld.vue"
-
+import { ref, reactive } from "vue"
+import ListItem from "./components/ListItem.vue"
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    ListItem,
+  },
+  setup() {
+    const list = reactive([])
+    const inputValue = ref("")
+    const handleAddItem = () => {
+      list.push(inputValue.value)
+      inputValue.value = ""
+    }
+
+    return { inputValue, list, handleAddItem }
   },
 }
 </script>
@@ -23,5 +37,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+
+  .button {
+    margin-left: 20px;
+    color: red;
+  }
 }
 </style>
