@@ -1,6 +1,6 @@
 <template>
   <div class="docker">
-    <span class="docker-item">
+    <span class="docker-item docker-item-active">
       <div class="iconfont">&#xe7a0;</div>
       <div class="docker-title">首页</div>
     </span>
@@ -32,7 +32,7 @@
   border-top: 1px solid #f1f1f1;
   background: green;
 
-  .docker-item {
+  &-item {
     flex: 1;
     text-align: center;
 
@@ -40,13 +40,16 @@
       margin: 0.07rem 0 0.02rem 0;
       font-size: 0.18rem;
     }
-    .docker-title {
-      font-size: 20px;
-      // 浏览器最低只能显示12px像素的字体，通过缩放可以显示10px的值
-      transform: scale(0.5, 0.5);
-      // 缩放中心点
-      transform-origin: center top;
+    &-active {
+      color: #1fa4fc;
     }
+  }
+  &-title {
+    font-size: 20px;
+    // 浏览器最低只能显示12px像素的字体，通过缩放可以显示10px的值
+    transform: scale(0.5, 0.5);
+    // 缩放中心点
+    transform-origin: center top;
   }
 }
 </style>
