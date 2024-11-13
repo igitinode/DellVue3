@@ -1,18 +1,27 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
-    <div>{{ myName }}</div>
+    <div>{{ name }}</div>
+    <button @click="handleClick">切换</button>
   </div>
 </template>
 
 <script>
+import { useStore } from "vuex"
+import { toRefs } from "vue"
 export default {
   name: "HomeView",
-  computed: {
-    myName() {
-      // 组件获取 VueX 全局仓库的数据
-      return this.$store.state.name
-    },
+  setup() {
+    // Composition API 使用 VueX
+    const store = useStore()
+    const { name } = toRefs(store.state)
+    const handleClick = () => {
+      store.commit("change", "uijack")
+    }
+    return {
+      name,
+      handleClick,
+    }
   },
 }
 </script>

@@ -10,6 +10,7 @@ export default {
   name: "AboutView",
   computed: {
     myName() {
+      // Options API 使用 Vuex
       // 组件获取 VueX 全局仓库的数据
       return this.$store.state.name
     },
