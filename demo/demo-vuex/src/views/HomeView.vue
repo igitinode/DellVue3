@@ -3,6 +3,7 @@
     <img alt="Vue logo" src="../assets/logo.png" />
     <div>{{ name }}</div>
     <button @click="handleClick">切换</button>
+    <button @click="handleClick1">axios获取</button>
   </div>
 </template>
 
@@ -18,9 +19,13 @@ export default {
     const handleClick = () => {
       store.commit("change", "uijack")
     }
+    const handleClick1 = () => {
+      store.dispatch("getData")
+    }
     return {
       name,
       handleClick,
+      handleClick1,
     }
   },
 }
