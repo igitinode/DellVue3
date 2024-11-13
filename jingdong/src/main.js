@@ -6,5 +6,7 @@ import store from './store'
 // 让normalize.css帮我们不同浏览器之间显示的差异
 import 'normalize.css'
 import './style/base.scss'
+// 引入阿里云cdn图标资源
+import './style/iconfont.css'
 
 createApp(App).use(store).use(router).mount('#app')

@@ -1,0 +1,17 @@
+/* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
+@font-face {
+  font-family: 'iconfont'; /* Project id 4744612 */
+  src: url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAARkAAsAAAAACTgAAAQXAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHFQGYACDMgqFTIR8ATYCJAMUCwwABCAFhGcHQhsYCMiemjzKBCigJgkAMBtc8OD5/5ztvvykdJLJiAEdtB1MpYN5EbEUvEV8ha9cZcfJ1pqlSJYzU9UnRHWQA9pOmpJ3L+2jDG4HkwzCCMvZavD/uXfPLZwC1x4ANOe2HlgeSAGNNS3CTt4X5X+ZVzh9RSq8Z7yCACYlVafVrX/3BuVBPSSCOh3dKtBkyqD+tgbZSom+QBW8Eg90pY4swgBtrnYFWJg+L58pnRc0DIU+q+Wcm/D3Lu79W+W4DqgnOPurwaM1wAAUUPTM1DJi2ThIogSLUphTf5ekJsDEi4b2Lu5d9/dr3791XQT32sSm+YcHgoZCB/GghbGEUFOg3zmWQyDwrjsCDd6vRaDg/Vv2uyM0yHgTsIF/SAFEyKDhOIWgbH1qKclISLZyeH0DS9HN4U1mbGSDs9HqEVn9JlrKkEWEJhH1wjS84Si6c8SMixwTI3zcmpdfOTEWf/KqFR+9frqKO3XNlGCE9Vkh4ftt7re7VPpU7ns/evcuTs0dDe8Gb6K8ZSlmcZF7mYYaaXvnRmHgpuy5cwfn7t3o/fsSvnev/IpeytIsZYV6R8VEs8+PzPI5EwXawbD2HBXe1DN8O3oTzD7OhouatkmUhbMxulkk5eROPmHnTffboYM/Pa99fGqn6QQrqequTTlc8HAK6b+yRh7b7/PbeXzBencndhJ7YkpgnS/QvetbF3CKDxblEr2b+TSmRZWFY+uc/jaL/bw+PzocHBxOs7ToOzq//i82oqtzOp7bpYV3y3Bjio6nfclGCw1ue81mdlEapdW0Nq2/A8kOX+2Td5uUK9xqsWzpdp+r/SwtytZK0Fk3629Psqkwm7gXdDZNNTOcICsfdIoUL9b8Yb4zpdHZC0WcxDmJ9/y+9YFNgfU+/71Or0WFA4n1a4Eim9q6LCdpU9KcxM3BIoWXkYhFNs0JwgQALnVSlUPnrSKqGIDarAA3lamK/KN+Q5e7Wr5bperfrKUD8Lpj+lzscOlsz/xHiAAz/z+izkBUXdCJSJ+qd3oEYSLkj2HW4F8idbE1ybP9iJPB6SB4SW5AIwvpoPDix+iEwmBgURo8eKkGJkXUW2+RbJgEoscA+U1HICTYCBpxHARFgvMYnXAfDNK8Bw8J/oNJZvZuFvnrVYdJEzKx5xT7GyqyrERSty9kDwONx3wfxAMXe7BU8ZL9yCVFxLuYM3Jkr4wSC0OsQqzPz6MgUDiMlUeGLPQT6e+UKBGaestCLxXCKUY0gphQT1OoP4MSsQK6dL/vBbENBTQMxHzo2YAySPeolOJKAjCXwgjU8Ez6jzRiWzGKsOi4EKaEUH2hJ4EJKmjY9DAPMYgF/bbw9+0oQdBCUOHC8cXhC9wGmOjHDdFEiS6GeDCGjjCJ44PHJ/sNDSnZqwcLAAA=')
+      format('woff2'),
+    url('//at.alicdn.com/t/c/font_4744612_ydvaibps49.woff?t=1731488521821')
+      format('woff'),
+    url('//at.alicdn.com/t/c/font_4744612_ydvaibps49.ttf?t=1731488521821')
+      format('truetype');
+}
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
