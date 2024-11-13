@@ -1,4 +1,5 @@
 import { createStore } from "vuex"
+import axios from "axios"
 
 // VueX数据管理框架
 // 组件级数据传递： provide、inject
@@ -27,6 +28,20 @@ export default createStore({
     change(store, value) {
       // 第三步 提交一个commit，触发一个 mutation
       store.commit("change", value)
+    },
+
+    getData(store) {
+      // axios 请求 数据
+      axios
+        .get(
+          "https://www.fastmock.site/mock/ae8e9031947a302fed5f92425995aa19/jd/api/user/register"
+        )
+        .then(() => {
+          store.commit("change", "test name")
+        })
+        .catch(() => {
+          store.commit("change", "test name")
+        })
     },
   },
   modules: {},
