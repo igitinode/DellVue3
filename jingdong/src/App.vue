@@ -12,6 +12,49 @@
     <div class="banner">
       <img class="banner-img" src="./assets/banner/image.png" />
     </div>
+    <div class="icons">
+      <div class="icons-item">
+        <img class="icons-item-img" src="./assets/icons/01.png" />
+        <p class="icons-item-desc">超市便利</p>
+      </div>
+      <div class="icons-item">
+        <img class="icons-item-img" src="./assets/icons/02.png" />
+        <p class="icons-item-desc">菜市场</p>
+      </div>
+      <div class="icons-item">
+        <img class="icons-item-img" src="./assets/icons/03.png" />
+        <p class="icons-item-desc">水果店</p>
+      </div>
+      <div class="icons-item">
+        <img class="icons-item-img" src="./assets/icons/04.png" />
+        <p class="icons-item-desc">鲜花绿植</p>
+      </div>
+      <div class="icons-item">
+        <img class="icons-item-img" src="./assets/icons/05.png" />
+        <p class="icons-item-desc">医药健康</p>
+      </div>
+      <div class="icons-item">
+        <img class="icons-item-img" src="./assets/icons/06.png" />
+        <p class="icons-item-desc">家居时尚</p>
+      </div>
+      <div class="icons-item">
+        <img class="icons-item-img" src="./assets/icons/07.png" />
+        <p class="icons-item-desc">烘焙蛋糕</p>
+      </div>
+      <div class="icons-item">
+        <img class="icons-item-img" src="./assets/icons/08.png" />
+        <p class="icons-item-desc">签到</p>
+      </div>
+      <div class="icons-item">
+        <img class="icons-item-img" src="./assets/icons/09.png" />
+        <p class="icons-item-desc">大牌免运</p>
+      </div>
+      <div class="icons-item">
+        <img class="icons-item-img" src="./assets/icons/10.png" />
+        <p class="icons-item-desc">红包套餐</p>
+      </div>
+    </div>
+    <div class="gap"></div>
   </div>
   <div class="docker">
     <span class="docker-item docker-item-active">
@@ -82,6 +125,7 @@
   &-text {
     display: inline-block;
     font-size: 0.14rem;
+    color: $content-fontcolor;
   }
 }
 .banner {
@@ -94,6 +138,31 @@
     width: 100%;
   }
 }
+.icons {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0.16rem;
+  &-item {
+    width: 20%;
+
+    &-img {
+      display: block;
+      width: 0.4rem;
+      height: 0.4rem;
+      margin: 0 auto;
+    }
+
+    &-desc {
+      margin: 0.06rem 0 0.16rem 0;
+      text-align: center;
+    }
+  }
+}
+.gap {
+  margin: 0 -0.18rem;
+  height: 0.1rem;
+  background: $content-bgColor;
+}
 .docker {
   display: flex;
   box-sizing: border-box;
@@ -103,7 +172,7 @@
   bottom: 0;
   width: 100%;
   height: 0.49rem;
-  border-top: 0.01px solid #f1f1f1;
+  border-top: 0.01px solid $content-bgColor;
   color: $content-fontcolor;
 
   &-item {
