@@ -1,0 +1,8 @@
+// 存放一些常用的样式组合
+
+// 文字省略...
+@mixin ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

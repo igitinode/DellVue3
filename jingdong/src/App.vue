@@ -1,4 +1,11 @@
 <template>
+  <div class="wrapper">
+    <div class="position">
+      <span class="iconfont position-icon">&#xe61f;</span>
+      北京理工大学国防科技园2号楼10层308宿舍
+      <span class="iconfont position-notice">&#xe60b;</span>
+    </div>
+  </div>
   <div class="docker">
     <span class="docker-item docker-item-active">
       <div class="iconfont">&#xe7a0;</div>
@@ -20,6 +27,37 @@
 </template>
 
 <style lang="scss">
+@import './style/viriables.scss';
+@import './style/mixins.scss';
+.wrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0.5rem;
+  right: 0;
+  padding: 0 0.18rem;
+}
+.position {
+  position: relative;
+  padding: 0.16rem 0.24rem 0.16rem 0;
+  line-height: 0.22rem;
+  font-size: 0.16rem;
+  @include ellipsis;
+
+  .position-icon {
+    position: relative;
+    top: 0.01rem;
+    font-size: 0.2rem;
+  }
+
+  .position-notice {
+    position: absolute;
+    right: 0;
+    top: 0.17rem;
+    font-size: 0.2rem;
+  }
+  color: $content-fontcolor;
+}
 .docker {
   display: flex;
   box-sizing: border-box;
@@ -29,8 +67,8 @@
   bottom: 0;
   width: 100%;
   height: 0.49rem;
-  border-top: 1px solid #f1f1f1;
-  background: green;
+  border-top: 0.01px solid #f1f1f1;
+  color: $content-fontcolor;
 
   &-item {
     flex: 1;
@@ -45,7 +83,7 @@
     }
   }
   &-title {
-    font-size: 20px;
+    font-size: 0.2rem;
     // 浏览器最低只能显示12px像素的字体，通过缩放可以显示10px的值
     transform: scale(0.5, 0.5);
     // 缩放中心点
