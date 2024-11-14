@@ -5,6 +5,13 @@
       北京理工大学国防科技园2号楼10层308宿舍
       <span class="iconfont position-notice">&#xe60b;</span>
     </div>
+    <div class="search">
+      <span class="iconfont">&#xe802;</span>
+      <span class="search-text">山姆会员商店优惠商品</span>
+    </div>
+    <div class="banner">
+      <img class="banner-img" src="./assets/banner/image.png" />
+    </div>
   </div>
   <div class="docker">
     <span class="docker-item docker-item-active">
@@ -57,6 +64,35 @@
     font-size: 0.2rem;
   }
   color: $content-fontcolor;
+}
+.search {
+  margin-bottom: 0.12rem;
+  line-height: 0.32rem;
+  background: #f5f5f5;
+  color: #b7b7b7;
+  border-radius: 0.16rem;
+  font-size: 0.14rem;
+
+  .iconfont {
+    display: inline-block;
+    padding: 0 0.08rem 0 0.16rem;
+    font-size: 0.16rem;
+  }
+
+  &-text {
+    display: inline-block;
+    font-size: 0.14rem;
+  }
+}
+.banner {
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 25.4%;
+  // 以上代码解决图片延迟加载抖动效果，提前撑开预固定高度
+
+  &-img {
+    width: 100%;
+  }
 }
 .docker {
   display: flex;
