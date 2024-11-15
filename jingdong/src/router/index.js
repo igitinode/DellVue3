@@ -11,7 +11,17 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
+    beforeEnter: (to, from, next) => {
+      const { isLogin } = localStorage
+      if (isLogin) {
+        // 已经登录, 不需要在进入登录界面了, 进入首页
+        next({ name: 'Home' })
+      } else {
+        // 未登录, 正常进入登录界面
+        next()
+      }
+    }
   }
   // {
   //   path: '/about',
@@ -26,6 +36,19 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+// 每次路由跳转之前的都要做的一些操作
+router.beforeEach((to, from, next) => {
+  const isLogin = localStorage.isLogin
+  // next 中间件继续执行的一个方法, 正常往下执行
+  if (isLogin || to.name === 'Login') {
+    // 登录了或者下一个界面是访问登录界面
+    next()
+  } else {
+    // 未登录跳转
+    next({ name: 'Login' })
+  }
 })
 
 export default router
