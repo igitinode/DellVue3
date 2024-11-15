@@ -12,45 +12,12 @@
     <img class="banner-img" src="@/assets/banner/image.png" />
   </div>
   <div class="icons">
-    <div class="icons-item">
-      <img class="icons-item-img" src="@/assets/icons/01.png" />
-      <p class="icons-item-desc">超市便利</p>
-    </div>
-    <div class="icons-item">
-      <img class="icons-item-img" src="@/assets/icons/02.png" />
-      <p class="icons-item-desc">菜市场</p>
-    </div>
-    <div class="icons-item">
-      <img class="icons-item-img" src="@/assets/icons/03.png" />
-      <p class="icons-item-desc">水果店</p>
-    </div>
-    <div class="icons-item">
-      <img class="icons-item-img" src="@/assets/icons/04.png" />
-      <p class="icons-item-desc">鲜花绿植</p>
-    </div>
-    <div class="icons-item">
-      <img class="icons-item-img" src="@/assets/icons/05.png" />
-      <p class="icons-item-desc">医药健康</p>
-    </div>
-    <div class="icons-item">
-      <img class="icons-item-img" src="@/assets/icons/06.png" />
-      <p class="icons-item-desc">家居时尚</p>
-    </div>
-    <div class="icons-item">
-      <img class="icons-item-img" src="@/assets/icons/07.png" />
-      <p class="icons-item-desc">烘焙蛋糕</p>
-    </div>
-    <div class="icons-item">
-      <img class="icons-item-img" src="@/assets/icons/08.png" />
-      <p class="icons-item-desc">签到</p>
-    </div>
-    <div class="icons-item">
-      <img class="icons-item-img" src="@/assets/icons/09.png" />
-      <p class="icons-item-desc">大牌免运</p>
-    </div>
-    <div class="icons-item">
-      <img class="icons-item-img" src="@/assets/icons/10.png" />
-      <p class="icons-item-desc">红包套餐</p>
+    <div class="icons-item" v-for="item in iconsList" :key="item.key">
+      <img
+        class="icons-item-img"
+        :src="require('@/assets/icons/' + item.key + '.png')"
+      />
+      <p class="icons-item-desc">{{ item.desc }}</p>
     </div>
   </div>
   <div class="gap"></div>
@@ -59,7 +26,23 @@
 <script>
 import {} from 'vue'
 export default {
-  name: 'StaticPart'
+  name: 'StaticPart',
+  setup() {
+    const iconsList = [
+      { imgName: '超市', key: '01', desc: '超市便利' },
+      { imgName: '菜市场', key: '02', desc: '菜市场' },
+      { imgName: '水果店', key: '03', desc: '水果店' },
+      { imgName: '鲜花', key: '04', desc: '鲜花绿植' },
+      { imgName: '医药健康', key: '05', desc: '医药健康' },
+      { imgName: '家居', key: '06', desc: '家居时尚' },
+      { imgName: '蛋糕', key: '07', desc: '烘焙蛋糕' },
+      { imgName: '签到', key: '08', desc: '签到' },
+      { imgName: '大牌免运', key: '09', desc: '大牌免运' },
+      { imgName: '红包', key: '10', desc: '红包套餐' }
+    ]
+
+    return { iconsList }
+  }
 }
 </script>
 
