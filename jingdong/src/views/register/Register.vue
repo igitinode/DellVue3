@@ -15,8 +15,17 @@
         placeholder="请输入密码"
       />
     </div>
-    <div class="wrapper-login-button" @click="handleLogin">登陆</div>
-    <div class="wrapper-login-link" @click="handleRegisterClick">立即注册</div>
+    <div class="wrapper-input">
+      <input
+        type="password"
+        class="wrapper-input-content"
+        placeholder="确认密码"
+      />
+    </div>
+    <div class="wrapper-register-button">注册</div>
+    <div class="wrapper-register-link" @click="handleLoginClick">
+      已有账号? 去登陆
+    </div>
   </div>
 </template>
 
@@ -27,15 +36,10 @@ export default {
   name: 'Login',
   setup() {
     const router = useRouter()
-    const handleLogin = () => {
-      localStorage.isLogin = true
-      // 登陆之后访问路由的 name='Home' 的页面
-      router.push({ name: 'Home' })
+    const handleLoginClick = () => {
+      router.push({ name: 'Login' })
     }
-    const handleRegisterClick = () => {
-      router.push({ name: 'Register' })
-    }
-    return { handleLogin, handleRegisterClick }
+    return { handleLoginClick }
   }
 }
 </script>
@@ -76,7 +80,7 @@ export default {
       }
     }
   }
-  &-login-button {
+  &-register-button {
     margin: 0.32rem 0.4rem 0.16rem 0.4rem;
     line-height: 0.48rem;
     background: #0091ff;
@@ -86,7 +90,7 @@ export default {
     font-size: 0.16rem;
     text-align: center;
   }
-  &-login-link {
+  &-register-link {
     text-align: center;
     font-size: 0.14rem;
     color: $content-notice-fontcolor;
