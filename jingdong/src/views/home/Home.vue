@@ -16,7 +16,7 @@ export default {
   components: { StaticPart, Nearby, Docker }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .wrapper {
   overflow-y: auto;
   position: absolute;
