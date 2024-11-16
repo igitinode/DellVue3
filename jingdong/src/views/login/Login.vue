@@ -5,7 +5,8 @@
       <input
         type="text"
         class="wrapper-input-content"
-        placeholder="请输入手机号"
+        placeholder="用户名"
+        v-model="data.username"
       />
     </div>
     <div class="wrapper-input">
@@ -13,6 +14,7 @@
         type="password"
         class="wrapper-input-content"
         placeholder="请输入密码"
+        v-model="data.password"
       />
     </div>
     <div class="wrapper-login-button" @click="handleLogin">登陆</div>
@@ -21,21 +23,41 @@
 </template>
 
 <script>
-import {} from 'vue'
+import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import axios from 'axios'
+axios.defaults.headers.post['Content-Type'] = 'application/json'
 export default {
   name: 'Login',
   setup() {
+    const data = reactive({
+      username: '',
+      password: ''
+    })
     const router = useRouter()
     const handleLogin = () => {
-      localStorage.isLogin = true
+      axios
+        .post(
+          'https://www.fastmock.site/mock/ae8e9031947a302fed5f92425995aa19/jd/api/user/login',
+          {
+            username: data.username,
+            password: data.password
+          }
+        )
+        .then(() => {
+          alert('success')
+        })
+        .catch(() => {
+          alert('failed')
+        })
+      // localStorage.isLogin = true
       // 登陆之后访问路由的 name='Home' 的页面
       router.push({ name: 'Home' })
     }
     const handleRegisterClick = () => {
       router.push({ name: 'Register' })
     }
-    return { handleLogin, handleRegisterClick }
+    return { data, handleLogin, handleRegisterClick }
   }
 }
 </script>
