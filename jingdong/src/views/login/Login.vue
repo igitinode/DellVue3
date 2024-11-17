@@ -20,21 +20,37 @@
     <div class="wrapper-login-button" @click="handleLogin">登陆</div>
     <div class="wrapper-login-link" @click="handleRegisterClick">立即注册</div>
   </div>
+  <toast v-if="data.showToast" :message="data.toastMessage" />
 </template>
 
 <script>
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import Toast from '@/components/Toast.vue'
 import axios from 'axios'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
+
 export default {
   name: 'Login',
+  components: { Toast },
   setup() {
     const data = reactive({
       username: '',
-      password: ''
+      password: '',
+      showToast: false,
+      toastMessage: ''
     })
     const router = useRouter()
+
+    const showToast = msg => {
+      // localStorage.isLogin = true
+      data.showToast = true
+      data.toastMessage = msg
+      setTimeout(() => {
+        data.showToast = false
+        data.toastMessage = ''
+      }, 2000)
+    }
     const handleLogin = () => {
       axios
         .post(
@@ -45,14 +61,13 @@ export default {
           }
         )
         .then(() => {
-          alert('success')
+          localStorage.isLogin = true
+          router.push({ name: 'Home' })
         })
         .catch(() => {
-          alert('failed')
+          showToast('请求失败')
+          // router.push({ name: 'Home' })
         })
-      // localStorage.isLogin = true
-      // 登陆之后访问路由的 name='Home' 的页面
-      router.push({ name: 'Home' })
     }
     const handleRegisterClick = () => {
       router.push({ name: 'Register' })
