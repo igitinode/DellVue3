@@ -38,8 +38,9 @@
 <script>
 import { reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
-import { post } from '@/utils/request'
+// import { post } from '@/utils/request'
 import Toast, { useToastEffect } from '@/components/Toast.vue'
+import { registerData } from '@/json/registerData.js'
 
 // 注册相关逻辑
 const useRegisterEffect = showToast => {
@@ -49,20 +50,17 @@ const useRegisterEffect = showToast => {
     password: '',
     ensurement: ''
   })
-  const handleRegister = async () => {
-    try {
-      const result = await post('/api/user/register', {
-        username: data.username,
-        password: data.password
-      })
-      if (result?.errno === 0) {
-        // 注册成功就跳转到登陆界面
-        router.push({ name: 'Login' })
-      } else {
-        showToast('注册失败')
-      }
-    } catch (e) {
-      showToast('请求失败')
+  const handleRegister = () => {
+    // const result = await post('/api/user/register', {
+    //   username: data.username,
+    //   password: data.password
+    // })
+    const result = registerData()
+    if (result?.errno === 0) {
+      // 注册成功就跳转到登陆界面
+      router.push({ name: 'Login' })
+    } else {
+      showToast('注册失败')
     }
   }
   const { username, password, ensurement } = toRefs(data)
