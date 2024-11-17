@@ -1,18 +1,17 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '@/views/home/Home.vue'
-import Login from '@/views/login/Login.vue'
-import Register from '@/views/register/Register.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: () =>
+      import(/* webpackChunkName: "home" */ '@/views/home/Home.vue')
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login,
+    component: () =>
+      import(/* webpackChunkName: "login" */ '@/views/login/Login.vue'),
     beforeEnter: (to, from, next) => {
       const { isLogin } = localStorage
       if (isLogin) {
@@ -27,7 +26,10 @@ const routes = [
   {
     path: '/register',
     name: 'Register',
-    component: Register,
+    Regicomponent: () =>
+      import(
+        /* webpackChunkName: "register" */ '@/views/register/Register.vue'
+      ),
     beforeEnter: (to, from, next) => {
       const { isLogin } = localStorage
       if (isLogin) {
@@ -38,15 +40,13 @@ const routes = [
         next()
       }
     }
+  },
+  {
+    path: '/shop',
+    name: 'Shop',
+    component: () =>
+      import(/* webpackChunkName: "shop" */ '@/views/shop/Shop.vue')
   }
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
 ]
 
 const router = createRouter({
