@@ -15,6 +15,7 @@
         class="wrapper-input-content"
         placeholder="请输入密码"
         v-model="password"
+        autocomplete="new-password"
       />
     </div>
     <div class="wrapper-login-button" @click="handleLogin">登陆</div>
@@ -29,15 +30,21 @@ import { useRouter } from 'vue-router'
 import { post } from '@/utils/request'
 import Toast, { useToastEffect } from '@/components/Toast.vue'
 
+// 登陆相关逻辑
 const useLoginEffect = showToast => {
   const router = useRouter()
   const data = reactive({ username: '', password: '' })
 
   const handleLogin = async () => {
+    const { username, password } = data
+    if (username === '' || password === '') {
+      showToast('请输入用户名或密码')
+      return
+    }
     try {
       const result = await post('/api/user/login', {
-        username: data.username,
-        password: data.password
+        username,
+        password
       })
       if (result?.errno === 0) {
         localStorage.isLogin = true
