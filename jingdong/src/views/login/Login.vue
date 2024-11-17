@@ -20,59 +20,43 @@
     <div class="wrapper-login-button" @click="handleLogin">登陆</div>
     <div class="wrapper-login-link" @click="handleRegisterClick">立即注册</div>
   </div>
-  <toast v-if="data.showToast" :message="data.toastMessage" />
+  <toast v-if="toastData.showToast" :message="toastData.toastMessage" />
 </template>
 
 <script>
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import Toast from '@/components/Toast.vue'
-import axios from 'axios'
-axios.defaults.headers.post['Content-Type'] = 'application/json'
+import { post } from '@/utils/request'
+import Toast, { useToastEffect } from '@/components/Toast.vue'
 
 export default {
   name: 'Login',
   components: { Toast },
   setup() {
-    const data = reactive({
-      username: '',
-      password: '',
-      showToast: false,
-      toastMessage: ''
-    })
     const router = useRouter()
+    const data = reactive({ username: '', password: '' })
+    const { toastData, showToast } = useToastEffect()
 
-    const showToast = msg => {
-      // localStorage.isLogin = true
-      data.showToast = true
-      data.toastMessage = msg
-      setTimeout(() => {
-        data.showToast = false
-        data.toastMessage = ''
-      }, 2000)
-    }
-    const handleLogin = () => {
-      axios
-        .post(
-          'https://www.fastmock.site/mock/ae8e9031947a302fed5f92425995aa19/jd/api/user/login',
-          {
-            username: data.username,
-            password: data.password
-          }
-        )
-        .then(() => {
+    const handleLogin = async () => {
+      try {
+        const result = await post('/api/user/login', {
+          username: data.username,
+          password: data.password
+        })
+        if (result?.errno === 0) {
           localStorage.isLogin = true
           router.push({ name: 'Home' })
-        })
-        .catch(() => {
-          showToast('请求失败')
-          // router.push({ name: 'Home' })
-        })
+        } else {
+          showToast('登陆失败')
+        }
+      } catch (e) {
+        showToast('请求失败')
+      }
     }
     const handleRegisterClick = () => {
       router.push({ name: 'Register' })
     }
-    return { data, handleLogin, handleRegisterClick }
+    return { data, toastData, handleLogin, handleRegisterClick }
   }
 }
 </script>
