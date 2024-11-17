@@ -27,33 +27,34 @@
 <script>
 import { reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
-import { post } from '@/utils/request'
+// import { post } from '@/utils/request'
 import Toast, { useToastEffect } from '@/components/Toast.vue'
+import { loginData } from '@/json/loginData.js'
 
 // 登陆相关逻辑
 const useLoginEffect = showToast => {
   const router = useRouter()
   const data = reactive({ username: '', password: '' })
 
-  const handleLogin = async () => {
+  const handleLogin = () => {
     const { username, password } = data
     if (username === '' || password === '') {
       showToast('请输入用户名或密码')
       return
     }
-    try {
-      const result = await post('/api/user/login', {
-        username,
-        password
-      })
-      if (result?.errno === 0) {
-        localStorage.isLogin = true
-        router.push({ name: 'Home' })
-      } else {
-        showToast('登陆失败')
-      }
-    } catch (e) {
-      showToast('请求失败')
+
+    // let result = await post('/api/user/login', {
+    //   username,
+    //   password
+    // })
+    // 重新赋值
+    const result = loginData()
+
+    if (result?.errno === 0) {
+      localStorage.isLogin = true
+      router.push({ name: 'Home' })
+    } else {
+      showToast('登陆失败')
     }
   }
   const { username, password } = toRefs(data)

@@ -1,49 +1,45 @@
 <template>
   <div class="nearby">
     <h3 class="nearby-title">附近店铺</h3>
-    <div class="nearby-item" v-for="item in nearbyList" :key="item.id">
+    <div class="nearby-item" v-for="item in nearbyList" :key="item.__id">
       <img class="nearby-item-img" src="@/assets/near/near.png" />
       <div class="nearby-content">
-        <div class="nearby-content-title">{{ item.title }}</div>
+        <div class="nearby-content-title">{{ item.name }}</div>
         <div class="nearby-content-tags">
-          <span
-            class="nearby-content-tag"
-            v-for="(innerItem, innerIndex) in item.tags"
-            :key="innerIndex"
-            >{{ innerItem }}</span
-          >
+          <span class="nearby-content-tag">月售{{ item.sales }}</span>
+          <span class="nearby-content-tag">起送{{ item.expressLimit }}</span>
+          <span class="nearby-content-tag">运费￥{{ item.expressPrice }}</span>
         </div>
-        <p class="nearby-content-highlight">{{ item.desc }}</p>
+        <p class="nearby-content-highlight">{{ item.slogan }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {} from 'vue'
+import { ref } from 'vue'
+// import { get } from '@/utils/request'
+import { nearByListData } from '@/json/nearbyListData.js'
+
+const useNearbyListEffect = () => {
+  const nearbyList = ref([])
+  const getNearbyList = () => {
+    // const result = await get('/api/shop/hot-list')
+    // 下面是替代数据 重新赋值
+    const result = nearByListData()
+    if (result?.errno === 0 && result?.data?.length) {
+      nearbyList.value = result.data
+    }
+  }
+
+  return { nearbyList, getNearbyList }
+}
 export default {
   name: 'Nearby',
   setup() {
-    const nearbyList = [
-      {
-        id: '111',
-        title: '沃尔玛',
-        imgUrl: '@/assets/near/near.png',
-        tags: ['月售1万', '起送￥0', '基础运费￥5'],
-        desc: 'VIP尊享满89元减4元运费券（每月3张）'
-      },
-      {
-        id: '112',
-        title: '沃尔玛',
-        imgUrl: '@/assets/near/near.png',
-        tags: ['月售1万', '起送￥0', '基础运费￥5'],
-        desc: 'VIP尊享满89元减4元运费券（每月3张）'
-      }
-    ]
-
-    return {
-      nearbyList
-    }
+    const { nearbyList, getNearbyList } = useNearbyListEffect()
+    getNearbyList()
+    return { nearbyList }
   }
 }
 </script>
