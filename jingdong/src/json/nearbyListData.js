@@ -5,7 +5,7 @@ export const nearByListData = () => {
     errno: 0,
     data: [
       {
-        __id: '111',
+        _id: '111',
         name: '沃尔玛',
         imgUrl: '@/assets/near/near.png',
         sales: 100,
@@ -15,7 +15,7 @@ export const nearByListData = () => {
         slogan: 'VIP尊享满89元减4元运费券（每月3张）'
       },
       {
-        __id: '112',
+        _id: '112',
         name: '沃尔玛',
         imgUrl: '@/assets/near/near.png',
         sales: 500,

@@ -7,13 +7,15 @@
         <input class="search-content-input" placeholder="请输入商品名称" />
       </div>
     </div>
-    <shop-info :item="item" :hideBorder="true" />
+    <shop-info :item="data.item" :hideBorder="true" />
   </div>
 </template>
 
 <script>
-import {} from 'vue'
+import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
+// import { get } from '@/utils/request'
+import { shopDetail } from '@/json/shopDetail.js'
 import ShopInfo from '@/components/ShopInfo.vue'
 
 export default {
@@ -21,21 +23,25 @@ export default {
   components: { ShopInfo },
   setup() {
     const router = useRouter()
-    const item = {
-      __id: '111',
-      name: '沃尔玛',
-      imgUrl: '@/assets/near/near.png',
-      sales: 100,
-      expressLimit: 0,
-      expressPrice: 5,
-      tags: ['月售1万', '起送￥0', '基础运费￥5'],
-      slogan: 'VIP尊享满89元减4元运费券（每月3张）'
+    const data = reactive({
+      item: {}
+    })
+    const getItemData = () => {
+      // const result = await get('/api/shop/1')
+      const result = shopDetail()
+      if (result?.errno === 0 && result?.data) {
+        data.item = result.data
+      }
     }
+
+    getItemData()
+    console.log(data.item)
+
     const handleBackClick = () => {
       router.back()
     }
     return {
-      item,
+      data,
       handleBackClick
     }
   }
@@ -49,7 +55,7 @@ export default {
 }
 .search {
   display: flex;
-  margin: 0.2rem 0 0.16rem 0;
+  margin: 0.14rem 0 0.04rem 0;
   line-height: 0.32rem;
 
   &-back {
@@ -61,13 +67,13 @@ export default {
   &-content {
     display: flex;
     flex: 1;
-    background-color: #f5f5f5;
+    background-color: $search-bgColor;
     border-radius: 0.16rem;
 
     &-icon {
       width: 0.44rem;
       text-align: center;
-      color: #b7b7b7;
+      color: $search-fontcolor;
     }
 
     &-input {
@@ -79,9 +85,9 @@ export default {
       background: none;
       height: 0.32rem;
       font-size: 0.14rem;
-      color: #333;
+      color: $content-fontcolor;
       &::placeholder {
-        color: #333;
+        color: $content-fontcolor;
       }
     }
   }
