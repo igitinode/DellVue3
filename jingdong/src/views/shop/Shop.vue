@@ -7,41 +7,58 @@
         <input class="search-content-input" placeholder="请输入商品名称" />
       </div>
     </div>
-    <shop-info :item="data.item" :hideBorder="true" />
+    <!-- 添加v-show是防止加载裂图效果 -->
+    <shop-info :item="item" :hideBorder="true" v-show="item.imgUrl" />
   </div>
 </template>
 
 <script>
-import { reactive } from 'vue'
-import { useRouter } from 'vue-router'
+import { reactive, toRefs } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 // import { get } from '@/utils/request'
 import { shopDetail } from '@/json/shopDetail.js'
 import ShopInfo from '@/components/ShopInfo.vue'
+
+// 获取当前商铺信息
+const useShopInfoEffect = () => {
+  // 当前路由的信息
+  const route = useRoute()
+  const shopid = route.params.id
+  const data = reactive({
+    id: shopid,
+    item: {}
+  })
+  const getItemData = () => {
+    // const result = await get(`/api/shop/${route.params.id}`)
+    const result = shopDetail()
+    if (result?.errno === 0 && result?.data) {
+      data.item = result.data
+    }
+  }
+  const { item } = toRefs(data)
+  return { item, getItemData }
+}
+
+// 点击回退逻辑
+const useBackRouterEffect = () => {
+  // 当前整个大的路由
+  const router = useRouter()
+  const handleBackClick = () => {
+    router.back()
+  }
+  return { handleBackClick }
+}
 
 export default {
   name: 'Shop',
   components: { ShopInfo },
   setup() {
-    const router = useRouter()
-    const data = reactive({
-      item: {}
-    })
-    const getItemData = () => {
-      // const result = await get('/api/shop/1')
-      const result = shopDetail()
-      if (result?.errno === 0 && result?.data) {
-        data.item = result.data
-      }
-    }
-
+    // 只包含流程
+    const { item, getItemData } = useShopInfoEffect()
+    const { handleBackClick } = useBackRouterEffect()
     getItemData()
-    console.log(data.item)
-
-    const handleBackClick = () => {
-      router.back()
-    }
     return {
-      data,
+      item,
       handleBackClick
     }
   }
