@@ -11,6 +11,14 @@
     <div class="product">
       <div class="product-item">
         <img class="product-item-img" src="@/assets/banner/image.png" />
+        <div class="product-item-detail">
+          <h4 class="product-item-title">番茄25g0/份</h4>
+          <p class="product-item-sales">月售10件</p>
+          <p class="product-item-price">
+            <span class="product-item-yen">&yen;33.6</span>
+            <span class="product-item-origin">&yen;66.6</span>
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -62,6 +70,35 @@ export default {
     &-img {
       width: 0.68rem;
       height: 0.68rem;
+      margin-right: 0.16rem;
+    }
+    &-title {
+      margin: 0;
+      line-height: 0.2rem;
+      font-size: 0.14rem;
+      color: #333;
+    }
+    &-sales {
+      margin: 0.06rem 0;
+      line-height: 0.16rem;
+      font-size: 0.12rem;
+      color: #333;
+    }
+    &-price {
+      margin: 0;
+      line-height: 0.2rem;
+      font-size: 0.14rem;
+      color: #e93b3b;
+    }
+    &-yen {
+      font-size: 0.12rem;
+    }
+    &-origin {
+      margin-left: 0.06rem;
+      line-height: 0.2rem;
+      font-size: 0.12rem;
+      color: #999;
+      text-decoration: line-through;
     }
   }
 }
