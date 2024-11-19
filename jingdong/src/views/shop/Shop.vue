@@ -9,6 +9,7 @@
     </div>
     <!-- 添加v-show是防止加载裂图效果 -->
     <shop-info :item="item" :hideBorder="true" v-show="item.imgUrl" />
+    <Content />
   </div>
 </template>
 
@@ -18,6 +19,7 @@ import { useRouter, useRoute } from 'vue-router'
 // import { get } from '@/utils/request'
 import { shopDetail } from '@/json/shopDetail.js'
 import ShopInfo from '@/components/ShopInfo.vue'
+import Content from './Content.vue'
 
 // 获取当前商铺信息
 const useShopInfoEffect = () => {
@@ -51,7 +53,7 @@ const useBackRouterEffect = () => {
 
 export default {
   name: 'Shop',
-  components: { ShopInfo },
+  components: { ShopInfo, Content },
   setup() {
     // 只包含流程
     const { item, getItemData } = useShopInfoEffect()
