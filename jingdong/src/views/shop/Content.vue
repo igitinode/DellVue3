@@ -1,24 +1,27 @@
 <template>
   <div class="content">
     <div class="category">
-      <div class="category-item category-item-active">全部商品</div>
-      <div class="category-item">秒杀</div>
-      <div class="category-item">新鲜水果</div>
-      <div class="category-item">休闲水果</div>
-      <div class="category-item">时令蔬菜</div>
-      <div class="category-item">肉蛋家禽</div>
+      <div
+        :class="{
+          'category-item': true,
+          'category-item-active': currentTab === item.tab
+        }"
+        v-for="item in categories"
+        :key="item.name"
+        @click="() => handleCategoryClick(item.tab)"
+      >
+        {{ item.name }}
+      </div>
     </div>
     <div class="product">
-      <div class="product-item">
+      <div class="product-item" v-for="item in contentList" :key="item._id">
         <img class="product-item-img" src="@/assets/banner/image.png" />
         <div class="product-item-detail">
-          <h4 class="product-item-title">
-            番茄250g番茄250g番茄250g番茄250g/份
-          </h4>
-          <p class="product-item-sales">月售10件</p>
+          <h4 class="product-item-title">{{ item.name }}</h4>
+          <p class="product-item-sales">月售{{ item.sales }}件</p>
           <p class="product-item-price">
-            <span class="product-item-yen">&yen;33.6</span>
-            <span class="product-item-origin">&yen;66.6</span>
+            <span class="product-item-yen">&yen;{{ item.price }}</span>
+            <span class="product-item-origin">&yen;{{ item.oldPrice }}</span>
           </p>
         </div>
         <div class="product-number">
@@ -32,9 +35,50 @@
 </template>
 
 <script>
-import {} from 'vue'
+import { reactive, toRefs } from 'vue'
+// import { get } from '@/utils/request';
+import {
+  contentDataAll,
+  contentDataSeckill,
+  contentDataFruit
+} from '@/json/contentData.js'
 export default {
-  name: 'Content'
+  name: 'Content',
+  setup() {
+    const categories = [
+      { name: '全部商品', tab: 'all' },
+      { name: '秒杀', tab: 'seckill' },
+      { name: '新鲜水果', tab: 'fruit' }
+    ]
+    const data = reactive({
+      currentTab: categories[0].tab,
+      contentList: []
+    })
+    const getContentData = tab => {
+      // const result = await get('/api/shop/1/products', {
+      //   tab: tab
+      // })
+
+      let result = []
+      if (tab === 'all') {
+        result = contentDataAll()
+      } else if (tab === 'seckill') {
+        result = contentDataSeckill()
+      } else {
+        result = contentDataFruit()
+      }
+      if (result?.errno === 0 && result?.data?.length) {
+        data.contentList = result.data
+      }
+    }
+    const handleCategoryClick = tab => {
+      data.currentTab = tab
+      getContentData(tab)
+    }
+    getContentData('all')
+    const { currentTab, contentList } = toRefs(data)
+    return { currentTab, categories, handleCategoryClick, contentList }
+  }
 }
 </script>
 
