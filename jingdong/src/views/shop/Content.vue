@@ -15,7 +15,7 @@
     </div>
     <div class="product">
       <div class="product-item" v-for="item in list" :key="item._id">
-        <img class="product-item-img" src="@/assets/banner/image.png" />
+        <img class="product-item-img" :src="item.imgUrl" />
         <div class="product-item-detail">
           <h4 class="product-item-title">{{ item.name }}</h4>
           <p class="product-item-sales">月售{{ item.sales }}件</p>
@@ -169,7 +169,7 @@ export default {
       margin: 0;
       line-height: 0.2rem;
       font-size: 0.14rem;
-      color: $heighlight-fontColor;
+      color: $hightlight-fontColor;
     }
     &-yen {
       font-size: 0.12rem;

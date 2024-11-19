@@ -7,7 +7,7 @@ export const contentDataAll = () => {
       {
         _id: '商品id1',
         name: '番茄250g/份',
-        imgUrl: '@/assets/near/near.png',
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/crab.png',
         sales: 10,
         price: 33.6,
         oldPrice: 66.6
@@ -15,7 +15,7 @@ export const contentDataAll = () => {
       {
         _id: '商品id2',
         name: '南瓜500g/份',
-        imgUrl: '@/assets/near/near.png',
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/cherry.png',
         sales: 24,
         price: 13.1,
         oldPrice: 20.6
@@ -23,7 +23,7 @@ export const contentDataAll = () => {
       {
         _id: '商品id3',
         name: '青菜500g/份',
-        imgUrl: '@/assets/near/near.png',
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/tomato.png',
         sales: 15,
         price: 20.5,
         oldPrice: 29.6
@@ -31,7 +31,7 @@ export const contentDataAll = () => {
       {
         _id: '商品id4',
         name: '大豆500g/份',
-        imgUrl: '@/assets/near/near.png',
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/crab.png',
         sales: 21,
         price: 15.6,
         oldPrice: 60
@@ -39,7 +39,7 @@ export const contentDataAll = () => {
       {
         _id: '商品id5',
         name: '胡萝卜500g/份',
-        imgUrl: '@/assets/near/near.png',
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/crab.png',
         sales: 1,
         price: 13.6,
         oldPrice: 26.6
@@ -47,7 +47,7 @@ export const contentDataAll = () => {
       {
         _id: '商品id6',
         name: '莴笋500g/份',
-        imgUrl: '@/assets/near/near.png',
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/crab.png',
         sales: 10,
         price: 14.6,
         oldPrice: 96.6
@@ -55,7 +55,7 @@ export const contentDataAll = () => {
       {
         _id: '商品id7',
         name: '南瓜500g/份',
-        imgUrl: '@/assets/near/near.png',
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/crab.png',
         sales: 10,
         price: 13.1,
         oldPrice: 56.6
@@ -72,7 +72,7 @@ export const contentDataSeckill = () => {
       {
         _id: '商品id1',
         name: '仙丹250g/份',
-        imgUrl: '@/assets/near/near.png',
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/cherry.png',
         sales: 10,
         price: 31.6,
         oldPrice: 66.6
@@ -80,7 +80,7 @@ export const contentDataSeckill = () => {
       {
         _id: '商品id2',
         name: '长生药500g/份',
-        imgUrl: '@/assets/near/near.png',
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/cherry.png',
         sales: 1,
         price: 13.6,
         oldPrice: 26.1
@@ -88,7 +88,7 @@ export const contentDataSeckill = () => {
       {
         _id: '商品id4',
         name: '大鹅500g/份',
-        imgUrl: '@/assets/near/near.png',
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/orange.png',
         sales: 8,
         price: 18.6,
         oldPrice: 26.6
@@ -96,7 +96,7 @@ export const contentDataSeckill = () => {
       {
         _id: '商品id6',
         name: '青蛙500g/份',
-        imgUrl: '@/assets/near/near.png',
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/orange.png',
         sales: 21,
         price: 13.6,
         oldPrice: 65.2
@@ -113,7 +113,7 @@ export const contentDataFruit = () => {
       {
         _id: '水果id1',
         name: '苹果652g/份',
-        imgUrl: '@/assets/near/near.png',
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/orange.png',
         sales: 10,
         price: 15.6,
         oldPrice: 58.6
@@ -121,7 +121,7 @@ export const contentDataFruit = () => {
       {
         _id: '水果id2',
         name: '梨500g/份',
-        imgUrl: '@/assets/near/near.png',
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/crab.png',
         sales: 11,
         price: 14.6,
         oldPrice: 29.6
@@ -129,7 +129,7 @@ export const contentDataFruit = () => {
       {
         _id: '水果id3',
         name: '南瓜500g/份',
-        imgUrl: '@/assets/near/near.png',
+        imgUrl: 'http://www.dell-lee.com/imgs/vue3/cherry.png',
         sales: 20,
         price: 13.6,
         oldPrice: 29.6
