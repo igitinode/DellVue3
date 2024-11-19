@@ -19,6 +19,11 @@
             <span class="product-item-origin">&yen;66.6</span>
           </p>
         </div>
+        <div class="product-number">
+          <span class="product-number-minus">-</span>
+          0
+          <span class="product-number-plus">+</span>
+        </div>
       </div>
     </div>
   </div>
@@ -62,6 +67,7 @@ export default {
   flex: 1;
 
   &-item {
+    position: relative;
     display: flex;
     padding: 0.12rem 0;
     margin: 0 0.16rem;
@@ -99,6 +105,32 @@ export default {
       font-size: 0.12rem;
       color: #999;
       text-decoration: line-through;
+    }
+    .product-number {
+      position: absolute;
+      right: 0;
+      bottom: 0.12rem;
+
+      &-minus,
+      &-plus {
+        display: inline-block;
+        width: 0.2rem;
+        height: 0.2rem;
+        line-height: 0.16rem;
+        border-radius: 50%;
+        font-size: 0.2rem;
+        text-align: center;
+      }
+      &-minus {
+        border: 0.01rem solid #666;
+        color: #666;
+        margin-right: 0.05rem;
+      }
+      &-plus {
+        background: #0091ff;
+        color: #fff;
+        margin-left: 0.05rem;
+      }
     }
   }
 }
