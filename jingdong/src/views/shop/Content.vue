@@ -25,11 +25,15 @@
           </p>
         </div>
         <div class="product-number">
-          <span class="product-number-minus">-</span>
+          <span
+            class="product-number-minus"
+            @click="changeCartItemInfo(shopId, item._id, item, -1)"
+            >-</span
+          >
           {{ cartList?.[shopId]?.[item._id]?.count || 0 }}
           <span
             class="product-number-plus"
-            @click="addItemToCart(shopId, item._id, item)"
+            @click="changeCartItemInfo(shopId, item._id, item, 1)"
             >+</span
           >
         </div>
@@ -99,10 +103,10 @@ const useCurrentListEffect = (currentTab, shopId) => {
 const useCartEffect = () => {
   const store = useStore()
   const { cartList } = toRefs(store.state)
-  const addItemToCart = (shopId, productId, productInfo) => {
-    store.commit('addItemToCart', { shopId, productId, productInfo })
+  const changeCartItemInfo = (shopId, productId, productInfo, num) => {
+    store.commit('changeCartItemInfo', { shopId, productId, productInfo, num })
   }
-  return { cartList, addItemToCart }
+  return { cartList, changeCartItemInfo }
 }
 export default {
   name: 'Content',
@@ -111,7 +115,7 @@ export default {
     const shopId = route.params.id
     const { currentTab, handleTabClick } = useTabEffect()
     const { list } = useCurrentListEffect(currentTab, shopId)
-    const { cartList, addItemToCart } = useCartEffect()
+    const { cartList, changeCartItemInfo } = useCartEffect()
 
     return {
       currentTab,
@@ -120,7 +124,7 @@ export default {
       list,
       cartList,
       shopId,
-      addItemToCart
+      changeCartItemInfo
     }
   }
 }

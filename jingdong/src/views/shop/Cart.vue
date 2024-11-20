@@ -3,10 +3,10 @@
     <div class="check">
       <div class="check-icon">
         <img src="@/assets/shop/basket.png" class="check-icon-img" />
-        <div class="check-icon-tag">1</div>
+        <div class="check-icon-tag">{{ total }}</div>
       </div>
       <div class="check-info">
-        总计：<span class="check-info-price">&yen; 128</span>
+        总计：<span class="check-info-price">&yen; {{ price }}</span>
       </div>
       <div class="check-btn">去结算</div>
     </div>
@@ -14,9 +14,50 @@
 </template>
 
 <script>
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
+
+// 获取购物车逻辑
+const useCartEffect = () => {
+  const store = useStore()
+  const route = useRoute()
+  const shopId = route.params.id
+  const cartList = store.state.cartList
+  // 数量
+  const total = computed(() => {
+    const productList = cartList[shopId]
+    let count = 0
+    if (productList) {
+      for (let item in productList) {
+        const product = productList[item]
+        count += product.count
+      }
+    }
+    return count
+  })
+  // 总价
+  const price = computed(() => {
+    const productList = cartList[shopId]
+    let totalPrice = 0
+    if (productList) {
+      for (let item in productList) {
+        const product = productList[item]
+        totalPrice += product.count * product.price
+      }
+    }
+    // 保留两位小数
+    return totalPrice.toFixed(2)
+  })
+  return { total, price }
+}
+
 export default {
   name: 'Cart',
-  setup() {}
+  setup() {
+    const { total, price } = useCartEffect()
+    return { total, price }
+  }
 }
 </script>
 
