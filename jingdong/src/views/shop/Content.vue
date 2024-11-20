@@ -26,8 +26,12 @@
         </div>
         <div class="product-number">
           <span class="product-number-minus">-</span>
-          0
-          <span class="product-number-plus">+</span>
+          {{ cartList?.[shopId]?.[item._id]?.count || 0 }}
+          <span
+            class="product-number-plus"
+            @click="addItemToCart(shopId, item._id, item)"
+            >+</span
+          >
         </div>
       </div>
     </div>
@@ -37,7 +41,8 @@
 <script>
 import { reactive, ref, toRefs, watchEffect } from 'vue'
 // import { get } from '@/utils/request';
-// import { useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 import {
   contentDataAll,
   contentDataSeckill,
@@ -61,12 +66,8 @@ const useTabEffect = () => {
 }
 
 // 列表内容相关逻辑
-const useCurrentListEffect = currentTab => {
-  const content = reactive({
-    list: []
-  })
-  // const route = useRoute()
-  // const shopId = route.params.id
+const useCurrentListEffect = (currentTab, shopId) => {
+  const content = reactive({ list: [] })
   const getContentData = () => {
     // const result = await get('/api/shop/${shopId}/products', {
     //   tab: currentTab.value
@@ -94,12 +95,33 @@ const useCurrentListEffect = currentTab => {
   return { list }
 }
 
+// 购物车相关逻辑
+const useCartEffect = () => {
+  const store = useStore()
+  const { cartList } = toRefs(store.state)
+  const addItemToCart = (shopId, productId, productInfo) => {
+    store.commit('addItemToCart', { shopId, productId, productInfo })
+  }
+  return { cartList, addItemToCart }
+}
 export default {
   name: 'Content',
   setup() {
+    const route = useRoute()
+    const shopId = route.params.id
     const { currentTab, handleTabClick } = useTabEffect()
-    const { list } = useCurrentListEffect(currentTab)
-    return { currentTab, categories, handleTabClick, list }
+    const { list } = useCurrentListEffect(currentTab, shopId)
+    const { cartList, addItemToCart } = useCartEffect()
+
+    return {
+      currentTab,
+      categories,
+      handleTabClick,
+      list,
+      cartList,
+      shopId,
+      addItemToCart
+    }
   }
 }
 </script>
