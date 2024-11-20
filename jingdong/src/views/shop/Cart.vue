@@ -1,29 +1,31 @@
 <template>
   <div class="cart">
     <div class="product">
-      <div class="product-item" v-for="item in productList" :key="item._id">
-        <img class="product-item-img" :src="item.imgUrl" />
-        <div class="product-item-detail">
-          <h4 class="product-item-title">{{ item.name }}</h4>
-          <p class="product-item-price">
-            <span class="product-item-yen">&yen;{{ item.price }}</span>
-            <span class="product-item-origin">&yen;{{ item.oldPrice }}</span>
-          </p>
+      <template v-for="item in productList" :key="item._id">
+        <div class="product-item" v-if="item.count > 0">
+          <img class="product-item-img" :src="item.imgUrl" />
+          <div class="product-item-detail">
+            <h4 class="product-item-title">{{ item.name }}</h4>
+            <p class="product-item-price">
+              <span class="product-item-yen">&yen;{{ item.price }}</span>
+              <span class="product-item-origin">&yen;{{ item.oldPrice }}</span>
+            </p>
+          </div>
+          <div class="product-number">
+            <span
+              class="product-number-minus"
+              @click="changeCartItemInfo(shopId, item._id, item, -1)"
+              >-</span
+            >
+            {{ item.count }}
+            <span
+              class="product-number-plus"
+              @click="changeCartItemInfo(shopId, item._id, item, 1)"
+              >+</span
+            >
+          </div>
         </div>
-        <div class="product-number">
-          <span
-            class="product-number-minus"
-            @click="changeCartItemInfo(shopId, item._id, item, -1)"
-            >-</span
-          >
-          {{ item.count }}
-          <span
-            class="product-number-plus"
-            @click="changeCartItemInfo(shopId, item._id, item, 1)"
-            >+</span
-          >
-        </div>
-      </div>
+      </template>
     </div>
     <div class="check">
       <div class="check-icon">
@@ -42,6 +44,7 @@
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
+import { useCommonCartEffect } from './commonCartEffect.js'
 
 // 获取购物车逻辑
 const useCartEffect = shopId => {
@@ -87,8 +90,9 @@ export default {
   setup() {
     const route = useRoute()
     const shopId = route.params.id
+    const { changeCartItemInfo } = useCommonCartEffect()
     const { total, price, productList } = useCartEffect(shopId)
-    return { total, price, productList }
+    return { shopId, total, price, productList, changeCartItemInfo }
   }
 }
 </script>
