@@ -30,7 +30,7 @@
             @click="changeCartItemInfo(shopId, item._id, item, -1)"
             >-</span
           >
-          {{ item.count || 0 }}
+          {{ cartList?.[shopId]?.[item._id]?.count || 0 }}
           <span
             class="product-number-plus"
             @click="changeCartItemInfo(shopId, item._id, item, 1)"
@@ -106,7 +106,7 @@ export default {
     const shopId = route.params.id
     const { currentTab, handleTabClick } = useTabEffect()
     const { list } = useCurrentListEffect(currentTab, shopId)
-    const { changeCartItemInfo } = useCommonCartEffect()
+    const { cartList, changeCartItemInfo } = useCommonCartEffect()
 
     return {
       currentTab,
@@ -114,6 +114,7 @@ export default {
       handleTabClick,
       list,
       shopId,
+      cartList,
       changeCartItemInfo
     }
   }

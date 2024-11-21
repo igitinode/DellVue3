@@ -49,6 +49,10 @@ export default createStore({
       const { shopId, productId } = payload
       const productItem = state.cartList[shopId][productId]
       productItem.check = !productItem.check
+    },
+    cleanCartProducts(state, payload) {
+      const { shopId } = payload
+      state.cartList[shopId] = {}
     }
   },
   actions: {},

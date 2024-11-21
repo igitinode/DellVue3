@@ -1,7 +1,15 @@
 <template>
   <div class="cart">
     <div class="product">
-      <div class="product-header"></div>
+      <div class="product-header">
+        <div class="product-header-all">
+          <span class="product-header-icon iconfont">&#xe6f7;</span>
+          全选
+        </div>
+        <div class="product-header-clear" @click="cleanCartProducts(shopId)">
+          清空购物车
+        </div>
+      </div>
       <template v-for="item in productList" :key="item._id">
         <div class="product-item" v-if="item.count > 0">
           <div
@@ -58,6 +66,11 @@ const useCartEffect = shopId => {
   const { changeCartItemInfo } = useCommonCartEffect()
   const cartList = store.state.cartList
 
+  // 清空购物车
+  const cleanCartProducts = shopId => {
+    store.commit('cleanCartProducts', { shopId })
+  }
+
   const changeCartItemChecked = (shopId, productId) => {
     store.commit('changeCartItemChecked', { shopId, productId })
   }
@@ -101,7 +114,8 @@ const useCartEffect = shopId => {
     price,
     productList,
     changeCartItemInfo,
-    changeCartItemChecked
+    changeCartItemChecked,
+    cleanCartProducts
   }
 }
 
@@ -114,6 +128,7 @@ export default {
       total,
       price,
       productList,
+      cleanCartProducts,
       changeCartItemInfo,
       changeCartItemChecked
     } = useCartEffect(shopId)
@@ -122,6 +137,7 @@ export default {
       total,
       price,
       productList,
+      cleanCartProducts,
       changeCartItemInfo,
       changeCartItemChecked
     }
@@ -143,9 +159,28 @@ export default {
   overflow-y: scroll;
   flex: 1;
   background: #fff;
+
   &-header {
-    height: 0.52rem;
+    display: flex;
+    line-height: 0.52rem;
     border-bottom: 0.01rem solid #f1f1f1;
+    font-size: 0.14rem;
+    color: #333;
+    &-all {
+      width: 0.64rem;
+      margin-left: 0.18rem;
+    }
+
+    &-icon {
+      color: #0091ff;
+      font-size: 0.2rem;
+    }
+
+    &-clear {
+      flex: 1;
+      margin-right: 0.16rem;
+      text-align: right;
+    }
   }
 
   &-item {
