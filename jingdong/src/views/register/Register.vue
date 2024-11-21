@@ -146,7 +146,7 @@ export default {
     background: $btnColor;
     box-shadow: 0 0.04rem 0.08rem 0 rgba(0, 145, 255, 0.32);
     border-radius: 0.04rem;
-    color: #fff;
+    color: $bgColor;
     font-size: 0.16rem;
     text-align: center;
   }
