@@ -96,7 +96,7 @@ const useCartEffect = shopId => {
 
   // 数量
   const total = computed(() => {
-    const productList = cartList[shopId]
+    const productList = cartList[shopId]?.productList
     let count = 0
     if (productList) {
       for (let item in productList) {
@@ -108,7 +108,7 @@ const useCartEffect = shopId => {
   })
   // 总价
   const price = computed(() => {
-    const productList = cartList[shopId]
+    const productList = cartList[shopId]?.productList
     let totalPrice = 0
     if (productList) {
       for (let item in productList) {
@@ -124,13 +124,13 @@ const useCartEffect = shopId => {
 
   // 从 store 获取购物车列表数据
   const productList = computed(() => {
-    const productCards = cartList[shopId] || []
+    const productCards = cartList[shopId]?.productList || []
     return productCards
   })
 
   // 全选计算属性
   const allChecked = computed(() => {
-    const productList = cartList[shopId]
+    const productList = cartList[shopId]?.productList
     let isAllChecked = true
     if (productList) {
       for (let item in productList) {
