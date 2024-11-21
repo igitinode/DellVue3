@@ -30,7 +30,7 @@
             @click="changeCartItem(shopId, item._id, item, -1, shopName)"
             >-</span
           >
-          {{ cartList?.[shopId]?.productList?.[item._id]?.count || 0 }}
+          {{ getProductCartCount(shopId, item._id) }}
           <span
             class="product-number-plus"
             @click="changeCartItem(shopId, item._id, item, 1, shopName)"
@@ -100,23 +100,33 @@ const useCurrentListEffect = (currentTab, shopId) => {
   return { list }
 }
 
+// 购物车相关逻辑
+const useCartEffect = () => {
+  const store = useStore()
+  const { cartList, changeCartItemInfo } = useCommonCartEffect()
+  const changeShopName = (shopId, shopName) => {
+    store.commit('changeShopName', { shopId, shopName })
+  }
+  const changeCartItem = (shopId, productId, item, num, shopname) => {
+    changeCartItemInfo(shopId, productId, item, num)
+    changeShopName(shopId, shopname)
+  }
+  const getProductCartCount = (shopId, productId) => {
+    return cartList?.[shopId]?.productList?.[productId]?.count || 0
+  }
+  return { cartList, changeCartItem, getProductCartCount }
+}
+
 export default {
   name: 'Content',
   props: ['shopName'],
   setup() {
     const route = useRoute()
     const shopId = route.params.id
-    const store = useStore()
-    const changeShopName = (shopId, shopName) => {
-      store.commit('changeShopName', { shopId, shopName })
-    }
     const { currentTab, handleTabClick } = useTabEffect()
     const { list } = useCurrentListEffect(currentTab, shopId)
-    const { cartList, changeCartItemInfo } = useCommonCartEffect()
-    const changeCartItem = (shopId, productId, item, num, shopname) => {
-      changeCartItemInfo(shopId, productId, item, num)
-      changeShopName(shopId, shopname)
-    }
+    const { cartList, changeCartItem, getProductCartCount } = useCartEffect()
+
     return {
       currentTab,
       categories,
@@ -124,7 +134,8 @@ export default {
       list,
       shopId,
       cartList,
-      changeCartItem
+      changeCartItem,
+      getProductCartCount
     }
   }
 }
