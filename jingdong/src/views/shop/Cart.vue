@@ -1,8 +1,14 @@
 <template>
   <div class="cart">
     <div class="product">
+      <div class="product-header"></div>
       <template v-for="item in productList" :key="item._id">
         <div class="product-item" v-if="item.count > 0">
+          <div
+            class="product-item-checked iconfont"
+            v-html="item.check ? '&#xe652;' : '&#xe6f7;'"
+            @click="changeCartItemChecked(shopId, item._id)"
+          ></div>
           <img class="product-item-img" :src="item.imgUrl" />
           <div class="product-item-detail">
             <h4 class="product-item-title">{{ item.name }}</h4>
@@ -49,7 +55,13 @@ import { useCommonCartEffect } from './commonCartEffect.js'
 // 获取购物车逻辑
 const useCartEffect = shopId => {
   const store = useStore()
+  const { changeCartItemInfo } = useCommonCartEffect()
   const cartList = store.state.cartList
+
+  const changeCartItemChecked = (shopId, productId) => {
+    store.commit('changeCartItemChecked', { shopId, productId })
+  }
+
   // 数量
   const total = computed(() => {
     const productList = cartList[shopId]
@@ -69,7 +81,9 @@ const useCartEffect = shopId => {
     if (productList) {
       for (let item in productList) {
         const product = productList[item]
-        totalPrice += product.count * product.price
+        if (product.check) {
+          totalPrice += product.count * product.price
+        }
       }
     }
     // 保留两位小数
@@ -82,7 +96,13 @@ const useCartEffect = shopId => {
     return productCards
   })
 
-  return { total, price, productList }
+  return {
+    total,
+    price,
+    productList,
+    changeCartItemInfo,
+    changeCartItemChecked
+  }
 }
 
 export default {
@@ -90,9 +110,21 @@ export default {
   setup() {
     const route = useRoute()
     const shopId = route.params.id
-    const { changeCartItemInfo } = useCommonCartEffect()
-    const { total, price, productList } = useCartEffect(shopId)
-    return { shopId, total, price, productList, changeCartItemInfo }
+    const {
+      total,
+      price,
+      productList,
+      changeCartItemInfo,
+      changeCartItemChecked
+    } = useCartEffect(shopId)
+    return {
+      shopId,
+      total,
+      price,
+      productList,
+      changeCartItemInfo,
+      changeCartItemChecked
+    }
   }
 }
 </script>
@@ -111,6 +143,10 @@ export default {
   overflow-y: scroll;
   flex: 1;
   background: #fff;
+  &-header {
+    height: 0.52rem;
+    border-bottom: 0.01rem solid #f1f1f1;
+  }
 
   &-item {
     position: relative;
@@ -118,6 +154,13 @@ export default {
     padding: 0.12rem 0;
     margin: 0 0.16rem;
     border-bottom: 0.01rem solid $content-bgColor;
+
+    &-checked {
+      line-height: 0.5rem;
+      margin-right: 0.2rem;
+      color: #0091ff;
+      font-size: 0.2rem;
+    }
 
     &-detail {
       overflow: hidden;
