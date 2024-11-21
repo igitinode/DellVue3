@@ -61,7 +61,9 @@
       <div class="check-info">
         总计：<span class="check-info-price">&yen; {{ price }}</span>
       </div>
-      <div class="check-btn">去结算</div>
+      <div class="check-btn">
+        <router-link :to="{ name: 'Home' }">去结算</router-link>
+      </div>
     </div>
   </div>
 </template>
