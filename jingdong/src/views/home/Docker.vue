@@ -7,8 +7,10 @@
       class="docker-item"
     >
       <!--图标特殊字符会被转义,所以要写v-html -->
-      <div class="iconfont" v-html="item.icon"></div>
-      <div class="docker-title">{{ item.text }}</div>
+      <router-link :to="item.to">
+        <div class="iconfont" v-html="item.icon"></div>
+        <div class="docker-title">{{ item.text }}</div>
+      </router-link>
     </span>
   </div>
 </template>
@@ -19,10 +21,10 @@ export default {
   name: 'Docker',
   setup() {
     const dockerList = [
-      { icon: '&#xe7a0;', text: '首页' },
-      { icon: '&#xe7e5;', text: '购物车' },
-      { icon: '&#xe60e;', text: '订单' },
-      { icon: '&#xe660;', text: '我的' }
+      { icon: '&#xe7a0;', text: '首页', to: { name: 'Home' } },
+      { icon: '&#xe7e5;', text: '购物车', to: { name: 'CartList' } },
+      { icon: '&#xe60e;', text: '订单', to: { name: 'Home' } },
+      { icon: '&#xe660;', text: '我的', to: { name: 'Home' } }
     ]
 
     return { dockerList }
@@ -47,13 +49,20 @@ export default {
   &-item {
     flex: 1;
     text-align: center;
+    a {
+      color: $content-fontcolor;
+      text-decoration: none;
+    }
 
     .iconfont {
       margin: 0.07rem 0 0.02rem 0;
       font-size: 0.18rem;
     }
+
     &-active {
-      color: #1fa4fc;
+      a {
+        color: #1fa4fc;
+      }
     }
   }
   &-title {
