@@ -68,7 +68,9 @@
         >
       </div>
       <div class="check-btn">
-        <router-link :to="{ name: 'Home' }">去结算</router-link>
+        <router-link :to="{ path: `/orderConfirmation/${shopId}` }"
+          >去结算</router-link
+        >
       </div>
     </div>
   </div>
